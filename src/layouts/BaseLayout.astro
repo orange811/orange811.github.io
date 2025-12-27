@@ -4,9 +4,10 @@ interface Props {
   description?: string;
 }
 
-const { title = 'Piyush Jain', description = 'Portfolio & Personal Website' } = Astro.props;
-import SiteNav from '../components/SiteNav.astro';
-import '../styles/global.css';
+const { title = "Piyush Jain", description = "Portfolio & Personal Website" } =
+  Astro.props;
+import SiteNav from "../components/SiteNav.astro";
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -18,23 +19,24 @@ import '../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    
+
     <script is:inline>
       // Theme initialization - runs before page render to avoid flash
       const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
         }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
+        // Default to light mode
+        return "light";
       })();
-      
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
+
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     </script>
   </head>
@@ -44,8 +46,12 @@ import '../styles/global.css';
       <slot />
     </main>
     <footer class="border-t border-[rgb(var(--border-color))] mt-auto">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-[rgb(var(--text-secondary))]">
-        <p>&copy; {new Date().getFullYear()} Piyush Jain. All rights reserved.</p>
+      <div
+        class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-[rgb(var(--text-secondary))]"
+      >
+        <p>
+          &copy; {new Date().getFullYear()} Piyush Jain. All rights reserved.
+        </p>
       </div>
     </footer>
   </body>

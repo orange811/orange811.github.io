@@ -23,21 +23,11 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <nav
-  class="border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50"
+  class="site-nav border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo/Brand -->
-      <div class="flex-shrink-0">
-        <a
-          href="/"
-          class="text-xl font-bold hover:text-slate-600 dark:hover:text-slate-300"
-        >
-          Piyush Jain
-        </a>
-      </div>
-
-      <!-- Desktop Navigation -->
+    <div class="flex items-center justify-center h-16">
+      <!-- Desktop Navigation (centered) -->
       <div class="hidden md:flex md:items-center md:space-x-6">
         {
           navLinks.map((link) => (
