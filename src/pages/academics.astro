@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const publications = await getCollection('publications');
+const sortedPublications = publications.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+---
+
+<BaseLayout title="Academics - Piyush Jain" description="Education and academic publications">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold mb-8">Academics</h1>
+
+    <!-- Education Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Education</h2>
+      <div class="space-y-6">
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-xl font-bold mb-2">Your University</h3>
+          <p class="text-[rgb(var(--text-secondary))] mb-2">Degree Name • Year - Year</p>
+          <p class="text-[rgb(var(--text-secondary))]">Brief description or relevant coursework</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section>
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Publications</h2>
+      {sortedPublications.length > 0 ? (
+        <div class="space-y-6">
+          {sortedPublications.map((pub) => (
+            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+              <h3 class="text-xl font-bold mb-2">{pub.data.title}</h3>
+              {pub.data.authors && (
+                <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
+                  {pub.data.authors.join(', ')}
+                </p>
+              )}
+              {pub.data.venue && (
+                <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
+                  {pub.data.venue}
+                  {pub.data.date && ` • ${new Date(pub.data.date).getFullYear()}`}
+                </p>
+              )}
+              {pub.data.link && (
+                <a 
+                  href={pub.data.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="inline-block mt-2 text-sm font-medium hover:underline"
+                >
+                  View Publication →
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="text-[rgb(var(--text-secondary))]">Publications coming soon.</p>
+      )}
+    </section>
+  </div>
+</BaseLayout>

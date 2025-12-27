@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Resume - Piyush Jain" description="Complete professional resume">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header with Download Button -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 sm:mb-0">Resume</h1>
+      <a 
+        href="/resume.pdf" 
+        download
+        class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors text-center"
+      >
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Contact Info -->
+    <section class="mb-8 p-6 bg-slate-50 dark:bg-slate-900 rounded-lg">
+      <h2 class="text-xl font-bold mb-4">Contact Information</h2>
+      <div class="grid sm:grid-cols-2 gap-3 text-[rgb(var(--text-secondary))]">
+        <p>Email: your.email@example.com</p>
+        <p>Location: Your City, Country</p>
+        <p>LinkedIn: linkedin.com/in/yourprofile</p>
+        <p>GitHub: github.com/yourusername</p>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Professional Summary</h2>
+      <p class="text-[rgb(var(--text-secondary))] leading-relaxed">
+        A brief professional summary highlighting your key strengths, experience, and career objectives. 
+        This should be 2-3 sentences that capture your professional identity and value proposition.
+      </p>
+    </section>
+
+    <!-- Experience -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Experience</h2>
+      <div class="space-y-8">
+        <article>
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h3 class="text-xl font-bold">Job Title</h3>
+              <p class="text-[rgb(var(--text-secondary))]">Company Name • Location</p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
+              Month Year - Present
+            </time>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-3 ml-2">
+            <li>Key achievement or responsibility with measurable impact</li>
+            <li>Another significant contribution or project</li>
+            <li>Technical skills or methodologies utilized</li>
+          </ul>
+        </article>
+
+        <article>
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h3 class="text-xl font-bold">Previous Position</h3>
+              <p class="text-[rgb(var(--text-secondary))]">Previous Company • Location</p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
+              Month Year - Month Year
+            </time>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-3 ml-2">
+            <li>Key achievement or responsibility</li>
+            <li>Another significant contribution</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Education</h2>
+      <div class="space-y-6">
+        <article>
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h3 class="text-xl font-bold">Degree Name</h3>
+              <p class="text-[rgb(var(--text-secondary))]">University Name</p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
+              Year - Year
+            </time>
+          </div>
+          <p class="text-[rgb(var(--text-secondary))] mt-2">
+            Relevant coursework, honors, or GPA if notable
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Technical Skills</h2>
+      <div class="space-y-4">
+        <div>
+          <h3 class="font-bold mb-2">Programming Languages</h3>
+          <p class="text-[rgb(var(--text-secondary))]">Python, JavaScript, TypeScript, Java, C++</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Frameworks & Libraries</h3>
+          <p class="text-[rgb(var(--text-secondary))]">React, Node.js, Express, Django, FastAPI</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Tools & Technologies</h3>
+          <p class="text-[rgb(var(--text-secondary))]">Git, Docker, AWS, PostgreSQL, MongoDB</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects/Publications -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Selected Projects</h2>
+      <div class="space-y-4">
+        <article>
+          <h3 class="text-lg font-bold">Project Name</h3>
+          <p class="text-[rgb(var(--text-secondary))] mt-1">
+            Brief description of the project, technologies used, and impact or results.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Certifications/Awards -->
+    <section>
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Certifications & Awards</h2>
+      <ul class="space-y-3 text-[rgb(var(--text-secondary))]">
+        <li>
+          <span class="font-semibold text-[rgb(var(--text-primary))]">Certification Name</span> - 
+          Issuing Organization, Year
+        </li>
+        <li>
+          <span class="font-semibold text-[rgb(var(--text-primary))]">Award Name</span> - 
+          Organization, Year
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const artworks = await getCollection('art');
+const sortedArt = artworks.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+---
+
+<BaseLayout title="Art - Piyush Jain" description="Creative works and art collections">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold mb-8">Art</h1>
+    
+    <p class="text-lg text-[rgb(var(--text-secondary))] mb-12">
+      A curated collection of my creative works and artistic endeavors.
+    </p>
+
+    {sortedArt.length > 0 ? (
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedArt.map((art) => (
+          <article class="border border-[rgb(var(--border-color))] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            {art.data.image && (
+              <div class="aspect-square bg-slate-100 dark:bg-slate-800">
+                <img 
+                  src={art.data.image} 
+                  alt={art.data.title}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            )}
+            <div class="p-4">
+              <h2 class="text-xl font-bold mb-2">{art.data.title}</h2>
+              {art.data.medium && (
+                <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">{art.data.medium}</p>
+              )}
+              {art.data.date && (
+                <p class="text-xs text-[rgb(var(--text-secondary))] mb-3">
+                  {new Date(art.data.date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long' 
+                  })}
+                </p>
+              )}
+              {art.data.tags && art.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-3">
+                  {art.data.tags.map((tag) => (
+                    <span class="px-2 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {art.data.link && (
+                <a 
+                  href={art.data.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-sm font-medium hover:underline"
+                >
+                  View Full →
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="text-[rgb(var(--text-secondary))]">Art collection coming soon.</p>
+    )}
+
+    <!-- External Links Section -->
+    <section class="mt-16 pt-12 border-t border-[rgb(var(--border-color))]">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Find More</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+          <h3 class="font-bold mb-2">Instagram</h3>
+          <p class="text-sm text-[rgb(var(--text-secondary))]">Follow my creative journey</p>
+        </a>
+        <a href="#" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+          <h3 class="font-bold mb-2">Behance</h3>
+          <p class="text-sm text-[rgb(var(--text-secondary))]">Design portfolio</p>
+        </a>
+        <a href="#" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+          <h3 class="font-bold mb-2">DeviantArt</h3>
+          <p class="text-sm text-[rgb(var(--text-secondary))]">Art gallery</p>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

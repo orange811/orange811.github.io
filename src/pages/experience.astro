@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Experience - Piyush Jain" description="Work experience and mentorship">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold mb-8">Experience</h1>
+
+    <!-- Work Experience Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Work Experience</h2>
+      <div class="space-y-8">
+        <article class="border-l-4 border-slate-300 dark:border-slate-700 pl-6">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h3 class="text-xl font-bold">Job Title</h3>
+              <p class="text-[rgb(var(--text-secondary))]">Company Name</p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
+              Month Year - Present
+            </time>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4">
+            <li>Key responsibility or achievement</li>
+            <li>Another significant contribution</li>
+            <li>Impact on the team or project</li>
+          </ul>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+              Skill
+            </span>
+            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+              Technology
+            </span>
+          </div>
+        </article>
+
+        <article class="border-l-4 border-slate-300 dark:border-slate-700 pl-6">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+            <div>
+              <h3 class="text-xl font-bold">Previous Position</h3>
+              <p class="text-[rgb(var(--text-secondary))]">Previous Company</p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
+              Month Year - Month Year
+            </time>
+          </div>
+          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4">
+            <li>Key responsibility or achievement</li>
+            <li>Another significant contribution</li>
+          </ul>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+              Skill
+            </span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Mentorship Section -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Mentorship & Teaching</h2>
+      <div class="space-y-6">
+        <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-xl font-bold mb-2">Mentorship Program or Role</h3>
+          <p class="text-[rgb(var(--text-secondary))] mb-2">Organization • Year</p>
+          <p class="text-[rgb(var(--text-secondary))]">
+            Description of mentorship activities, impact, or number of mentees.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section>
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Skills</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-lg font-bold mb-3">Technical</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Python</span>
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">JavaScript</span>
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">TypeScript</span>
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">React</span>
+          </div>
+        </div>
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-lg font-bold mb-3">Tools & Platforms</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Git</span>
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Docker</span>
+            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">AWS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

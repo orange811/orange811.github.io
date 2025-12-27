@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Piyush Jain - Portfolio" description="Welcome to my portfolio and personal website">
+  <div class="max-w-4xl mx-auto">
+    <!-- Hero Section -->
+    <section class="py-12 md:py-20">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        Hi, I'm <span class="text-slate-700 dark:text-slate-300">Piyush Jain</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-[rgb(var(--text-secondary))] mb-8 leading-relaxed">
+        Welcome to my digital space. I'm passionate about technology, research, and creative expression.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/projects" class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors">
+          View Projects
+        </a>
+        <a href="/resume" class="px-6 py-3 border border-[rgb(var(--border-color))] rounded-md font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+          View Resume
+        </a>
+      </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="py-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="/academics" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+        <h2 class="text-xl font-bold mb-2">Academics</h2>
+        <p class="text-[rgb(var(--text-secondary))]">Education background and publications</p>
+      </a>
+      <a href="/projects" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+        <h2 class="text-xl font-bold mb-2">Projects</h2>
+        <p class="text-[rgb(var(--text-secondary))]">Personal and technical projects</p>
+      </a>
+      <a href="/art" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+        <h2 class="text-xl font-bold mb-2">Art</h2>
+        <p class="text-[rgb(var(--text-secondary))]">Creative works and collections</p>
+      </a>
+      <a href="/experience" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+        <h2 class="text-xl font-bold mb-2">Experience</h2>
+        <p class="text-[rgb(var(--text-secondary))]">Work history and mentorship</p>
+      </a>
+      <a href="/resume" class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+        <h2 class="text-xl font-bold mb-2">Resume</h2>
+        <p class="text-[rgb(var(--text-secondary))]">Complete professional profile</p>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
