@@ -38,6 +38,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Include custom domain CNAME in artifact
+        run: cp CNAME dist/CNAME
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

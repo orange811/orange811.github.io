@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const publications = await getCollection("publications");
+const sortedPublications = publications.sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+});
+
+const projects = await getCollection("projects");
+const sortedProjects = projects.sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+});
+
+const researchItems = [
+    {
+        title: "Bi-Directional Sign Language Translator (Final Year Project)",
+        org: "Pune Institute of Computer Technology",
+        period: "Sep 2024 – May 2025",
+        bullets: [
+            "Real-time Indian Sign Language to text system using MediaPipe landmarks; compared LSTM vs DTW for sequence modeling.",
+            "Text-to-sign pipeline via NLP text-to-gloss conversion and dictionary-driven retrieval of sign videos.",
+            "Achieved 94.32% accuracy on 11 dynamic gestures using DTW; ongoing manuscript preparation.",
+        ],
+        link: {
+            href: "https://github.com/orange811/sign-language-translator/",
+            label: "Repo →",
+        },
+    },
+    {
+        title: "Single Image De-Raining (Independent Study, Honours Seminar)",
+        org: "Pune Institute of Computer Technology",
+        period: "Jan 2025 – Apr 2025",
+        bullets: [
+            "TensorFlow CNN to remove rain streaks using hybrid L1 + SSIM loss.",
+            "Outperformed baseline models on PSNR and SSIM while remaining lightweight for deployment.",
+        ],
+    },
+];
+---
+
+<BaseLayout
+    title="Publications, Research, and Projects - Piyush Jain"
+    description="Consolidated publications, research experience, and personal projects"
+>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold mb-10">
+            Publications, Research, and Projects
+        </h1>
+
+        <!-- Publications -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Publications</h2>
+            {
+                sortedPublications.length > 0 ? (
+                    <div class="space-y-6">
+                        {sortedPublications.map((pub) => (
+                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+                                <h3 class="text-xl font-bold mb-2">
+                                    {pub.data.title}
+                                </h3>
+                                {pub.data.authors && (
+                                    <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
+                                        {pub.data.authors.join(", ")}
+                                    </p>
+                                )}
+                                {pub.data.venue && (
+                                    <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
+                                        {pub.data.venue}
+                                        {pub.data.date &&
+                                            ` • ${new Date(pub.data.date).getFullYear()}`}
+                                    </p>
+                                )}
+                                {pub.data.link && (
+                                    <a
+                                        href={pub.data.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-block mt-2 text-sm font-medium hover:underline"
+                                    >
+                                        View Publication →
+                                    </a>
+                                )}
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <p class="text-[rgb(var(--text-secondary))]">
+                        Publications coming soon.
+                    </p>
+                )
+            }
+        </section>
+
+        <!-- Research Experience -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">
+                Research Experience
+            </h2>
+            {
+                researchItems.length > 0 ? (
+                    <div class="space-y-6">
+                        {researchItems.map((item) => (
+                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+                                    <h3 class="text-xl font-bold">
+                                        {item.title}
+                                    </h3>
+                                    <time class="text-sm text-[rgb(var(--text-secondary))]">
+                                        {item.period}
+                                    </time>
+                                </div>
+                                <p class="text-[rgb(var(--text-secondary))] mb-2">
+                                    {item.org}
+                                </p>
+                                <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))]">
+                                    {item.bullets.map((b) => (
+                                        <li>{b}</li>
+                                    ))}
+                                </ul>
+                                {item.link && (
+                                    <a
+                                        href={item.link.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-sm font-medium hover:underline mt-3 inline-block"
+                                    >
+                                        {item.link.label}
+                                    </a>
+                                )}
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <p class="text-[rgb(var(--text-secondary))]">
+                        Content coming soon.
+                    </p>
+                )
+            }
+        </section>
+
+        <!-- Personal Projects -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">
+                Personal Projects
+            </h2>
+            {
+                sortedProjects.length > 0 ? (
+                    <div class="space-y-6">
+                        {sortedProjects.map((project) => (
+                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+                                    <h3 class="text-2xl font-bold mb-2 sm:mb-0">
+                                        {project.data.title}
+                                    </h3>
+                                    {project.data.date && (
+                                        <time class="text-sm text-[rgb(var(--text-secondary))]">
+                                            {new Date(
+                                                project.data.date,
+                                            ).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "short",
+                                            })}
+                                        </time>
+                                    )}
+                                </div>
+
+                                <p class="text-[rgb(var(--text-secondary))] mb-4">
+                                    {project.data.description}
+                                </p>
+
+                                {project.data.tags &&
+                                    project.data.tags.length > 0 && (
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            {project.data.tags.map((tag) => (
+                                                <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                <div class="flex gap-4">
+                                    {project.data.repo && (
+                                        <a
+                                            href={project.data.repo}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-sm font-medium hover:underline"
+                                        >
+                                            View Code →
+                                        </a>
+                                    )}
+                                    {project.data.link && (
+                                        <a
+                                            href={project.data.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-sm font-medium hover:underline"
+                                        >
+                                            Video Demo →
+                                        </a>
+                                    )}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <p class="text-[rgb(var(--text-secondary))]">
+                        Projects coming soon.
+                    </p>
+                )
+            }
+        </section>
+    </div>
+</BaseLayout>

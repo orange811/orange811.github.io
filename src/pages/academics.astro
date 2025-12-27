@@ -1,16 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const publications = await getCollection('publications');
-const sortedPublications = publications.sort((a, b) => {
-  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
-  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
-  return dateB - dateA;
-});
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Academics - Piyush Jain" description="Education and academic publications">
+<BaseLayout
+  title="Academics - Piyush Jain"
+  description="Education and standardized tests"
+>
   <div class="max-w-4xl mx-auto">
     <h1 class="text-4xl md:text-5xl font-bold mb-8">Academics</h1>
 
@@ -19,48 +14,151 @@ const sortedPublications = publications.sort((a, b) => {
       <h2 class="text-2xl md:text-3xl font-bold mb-6">Education</h2>
       <div class="space-y-6">
         <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
-          <h3 class="text-xl font-bold mb-2">Your University</h3>
-          <p class="text-[rgb(var(--text-secondary))] mb-2">Degree Name • Year - Year</p>
-          <p class="text-[rgb(var(--text-secondary))]">Brief description or relevant coursework</p>
+          <h3 class="text-xl font-bold mb-1">
+            <a href="https://www.pict.edu" class="hover:underline"
+              >Pune Institute of Computer Technology (PICT)</a
+            >
+          </h3>
+          <p class="text-[rgb(var(--text-secondary))] mb-2">
+            Bachelor of Engineering (Honours), Electronics & Telecommunication;
+            Specialization: AI & ML • Jun 2021 – May 2025
+          </p>
+          <ul
+            class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))]"
+          >
+            <li>
+              Core: Electronics, Communication Systems, Signal Processing,
+              Embedded Systems.
+            </li>
+            <li>
+              CS: Data Structures, OOPS, Computer Networks, Network Security.
+            </li>
+            <li>
+              Honours: Computational Statistics, AI, ML, Soft Computing & Deep
+              Learning (with labs).
+            </li>
+            <li>Degree granted by Savitribai Phule Pune University (SPPU).</li>
+            <li>
+              Final grade: <span
+                class="font-semibold text-[rgb(var(--text-primary))]"
+                >CGPA 8.04/10</span
+              > (First Class with Distinction).
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-xl font-bold mb-1">Orbis</h3>
+          <p class="text-[rgb(var(--text-secondary))]">Details coming soon.</p>
+        </div>
+
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <h3 class="text-xl font-bold mb-1">MCPS</h3>
+          <p class="text-[rgb(var(--text-secondary))]">Details coming soon.</p>
         </div>
       </div>
     </section>
 
-    <!-- Publications Section -->
-    <section>
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Publications</h2>
-      {sortedPublications.length > 0 ? (
-        <div class="space-y-6">
-          {sortedPublications.map((pub) => (
-            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
-              <h3 class="text-xl font-bold mb-2">{pub.data.title}</h3>
-              {pub.data.authors && (
-                <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
-                  {pub.data.authors.join(', ')}
-                </p>
-              )}
-              {pub.data.venue && (
-                <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
-                  {pub.data.venue}
-                  {pub.data.date && ` • ${new Date(pub.data.date).getFullYear()}`}
-                </p>
-              )}
-              {pub.data.link && (
-                <a 
-                  href={pub.data.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="inline-block mt-2 text-sm font-medium hover:underline"
+    <!-- Standardized Tests -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">Standardized Tests</h2>
+      <div class="space-y-4">
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between"
+          >
+            <h3 class="text-lg font-bold">GRE (Graduate Record Examination)</h3>
+            <time class="text-sm text-[rgb(var(--text-secondary))]"
+              >Sep 2025</time
+            >
+          </div>
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <div class="flex flex-col">
+              <span
+                class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-sm font-semibold"
+                >330/340</span
+              >
+              <span
+                class="text-xs text-[rgb(var(--text-secondary))] leading-tight"
+                >Total</span
+              >
+            </div>
+            <span class="h-6 w-px bg-[rgb(var(--border-color))]"></span>
+            <div class="flex flex-wrap gap-2">
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Verbal 164/170</span
                 >
-                  View Publication →
-                </a>
-              )}
-            </article>
-          ))}
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Quant 166/170</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >AWA 3.5/6.0</span
+                >
+              </div>
+            </div>
+          </div>
         </div>
-      ) : (
-        <p class="text-[rgb(var(--text-secondary))]">Publications coming soon.</p>
-      )}
+
+        <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between"
+          >
+            <h3 class="text-lg font-bold">
+              IELTS (International English Language Testing System)
+            </h3>
+            <time class="text-sm text-[rgb(var(--text-secondary))]"
+              >Dec 2024</time
+            >
+          </div>
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <div class="flex flex-col">
+              <span
+                class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-sm font-semibold"
+                >8.5/9.0</span
+              >
+              <span
+                class="text-xs text-[rgb(var(--text-secondary))] leading-tight"
+                >Total</span
+              >
+            </div>
+            <span class="h-6 w-px bg-[rgb(var(--border-color))]"></span>
+            <div class="flex flex-wrap gap-2">
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Reading 9.0/9.0</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Listening 9.0/9.0</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Writing 7.5/9.0</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-xs font-medium"
+                  >Speaking 8.0/9.0</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </BaseLayout>

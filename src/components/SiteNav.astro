@@ -2,48 +2,58 @@
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/academics', label: 'Academics' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/art', label: 'Art' },
-  { href: '/experience', label: 'Experience' },
-  { href: '/resume', label: 'Resume' },
+  { href: "/", label: "Home" },
+  { href: "/academics", label: "Academics" },
+  {
+    href: "/publications-research-projects",
+    label: "Publications, Research & Projects",
+  },
+  { href: "/art", label: "Art" },
+  { href: "/experience", label: "Experience" },
+  { href: "/resume", label: "Resume" },
 ];
 
 const isActive = (href: string) => {
-  if (href === '/') {
-    return currentPath === '/';
+  if (href === "/") {
+    return currentPath === "/";
   }
   return currentPath.startsWith(href);
 };
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<nav class="border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50">
+<nav
+  class="border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50"
+>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-xl font-bold hover:text-slate-600 dark:hover:text-slate-300">
+        <a
+          href="/"
+          class="text-xl font-bold hover:text-slate-600 dark:hover:text-slate-300"
+        >
           Piyush Jain
         </a>
       </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex md:items-center md:space-x-6">
-        {navLinks.map(link => (
-          <a
-            href={link.href}
-            class:list={[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              isActive(link.href)
-                ? 'bg-slate-100 dark:bg-slate-800'
-                : 'hover:bg-slate-50 dark:hover:bg-slate-800'
-            ]}
-          >
-            {link.label}
-          </a>
-        ))}
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={[
+                "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                isActive(link.href)
+                  ? "bg-slate-100 dark:bg-slate-800"
+                  : "hover:bg-slate-50 dark:hover:bg-slate-800",
+              ]}
+            >
+              {link.label}
+            </a>
+          ))
+        }
         <ThemeToggle />
       </div>
 
@@ -51,23 +61,38 @@ import ThemeToggle from './ThemeToggle.astro';
       <div class="flex items-center md:hidden">
         <ThemeToggle />
         <details class="relative ml-2">
-          <summary class="list-none cursor-pointer p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <summary
+            class="list-none cursor-pointer p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </summary>
-          <div class="absolute right-0 mt-2 w-48 bg-[rgb(var(--bg-primary))] border border-[rgb(var(--border-color))] rounded-md shadow-lg py-1">
-            {navLinks.map(link => (
-              <a
-                href={link.href}
-                class:list={[
-                  'block px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800',
-                  isActive(link.href) ? 'bg-slate-50 dark:bg-slate-900' : ''
-                ]}
-              >
-                {link.label}
-              </a>
-            ))}
+          <div
+            class="absolute right-0 mt-2 w-48 bg-[rgb(var(--bg-primary))] border border-[rgb(var(--border-color))] rounded-md shadow-lg py-1"
+          >
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class:list={[
+                    "block px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-800",
+                    isActive(link.href) ? "bg-slate-50 dark:bg-slate-900" : "",
+                  ]}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
           </div>
         </details>
       </div>

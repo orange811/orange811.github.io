@@ -1,8 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Experience - Piyush Jain" description="Work experience and mentorship">
+<BaseLayout
+  title="Experience - Piyush Jain"
+  description="Work experience and mentorship"
+>
   <div class="max-w-4xl mx-auto">
     <h1 class="text-4xl md:text-5xl font-bold mb-8">Experience</h1>
 
@@ -11,48 +14,136 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2 class="text-2xl md:text-3xl font-bold mb-6">Work Experience</h2>
       <div class="space-y-8">
         <article class="border-l-4 border-slate-300 dark:border-slate-700 pl-6">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2"
+          >
             <div>
-              <h3 class="text-xl font-bold">Job Title</h3>
-              <p class="text-[rgb(var(--text-secondary))]">Company Name</p>
+              <h3 class="text-xl font-bold">
+                Technology Consultant - Automation & DevSecOps
+              </h3>
+              <p class="text-[rgb(var(--text-secondary))]">
+                Hewlett Packard Enterprise (via Mphasis Ltd.) • Pune, India
+              </p>
             </div>
-            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
-              Month Year - Present
-            </time>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0"
+              >Aug 2025 – Present</time
+            >
           </div>
-          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4">
-            <li>Key responsibility or achievement</li>
-            <li>Another significant contribution</li>
-            <li>Impact on the team or project</li>
+          <ul
+            class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4"
+          >
+            <li>
+              Developed multithreaded Python module for server firmware upgrades
+              across <span class="font-semibold text-[rgb(var(--text-primary))]"
+                >100+ servers</span
+              >, including local HTTP service hosting multi-GB ISO images with
+              comprehensive logging and robust error handling.
+            </li>
+            <li>
+              Reduced manual effort by over <span
+                class="font-semibold text-[rgb(var(--text-primary))]">95%</span
+              > by automating slow, error-prone upgrade processes complicated by undocumented
+              hardware behavior.
+            </li>
           </ul>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
-              Skill
-            </span>
-            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
-              Technology
-            </span>
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Python</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >HTTP</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Automation</span
+            >
           </div>
         </article>
 
         <article class="border-l-4 border-slate-300 dark:border-slate-700 pl-6">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2"
+          >
             <div>
-              <h3 class="text-xl font-bold">Previous Position</h3>
-              <p class="text-[rgb(var(--text-secondary))]">Previous Company</p>
+              <h3 class="text-xl font-bold">Technology Consultant Intern</h3>
+              <p class="text-[rgb(var(--text-secondary))]">
+                Hewlett Packard Enterprise (via Mphasis Ltd.) • Pune, India
+              </p>
             </div>
-            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0">
-              Month Year - Month Year
-            </time>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0"
+              >Feb 2025 – Aug 2025</time
+            >
           </div>
-          <ul class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4">
-            <li>Key responsibility or achievement</li>
-            <li>Another significant contribution</li>
+          <ul
+            class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4"
+          >
+            <li>
+              Automated log rotation and server-profile backups using Python,
+              Ansible, AWX, and GitLab, improving reliability across managed
+              Linux systems.
+            </li>
           </ul>
           <div class="flex flex-wrap gap-2 mt-4">
-            <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
-              Skill
-            </span>
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Python</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Ansible</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >AWX</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >GitLab</span
+            >
+          </div>
+        </article>
+
+        <article class="border-l-4 border-slate-300 dark:border-slate-700 pl-6">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2"
+          >
+            <div>
+              <h3 class="text-xl font-bold">
+                Data Science & Machine Learning Intern
+              </h3>
+              <p class="text-[rgb(var(--text-secondary))]">
+                MITU Skillologies • Pune, India
+              </p>
+            </div>
+            <time class="text-sm text-[rgb(var(--text-secondary))] mt-1 sm:mt-0"
+              >Feb 2024 – Mar 2024</time
+            >
+          </div>
+          <ul
+            class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))] mt-4"
+          >
+            <li>
+              Built supervised learning model to classify chord harmonies in
+              Bach chorales using feature-engineered musical attributes.
+            </li>
+            <li>
+              Optimized Random Forest and SVM via grid search, achieving <span
+                class="font-semibold text-[rgb(var(--text-primary))]"
+                >78.95%</span
+              > accuracy.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Python</span
+            >
+            <span
+              class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full"
+              >scikit-learn</span
+            >
           </div>
         </article>
       </div>
@@ -62,12 +153,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section class="mb-12">
       <h2 class="text-2xl md:text-3xl font-bold mb-6">Mentorship & Teaching</h2>
       <div class="space-y-6">
-        <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
-          <h3 class="text-xl font-bold mb-2">Mentorship Program or Role</h3>
-          <p class="text-[rgb(var(--text-secondary))] mb-2">Organization • Year</p>
-          <p class="text-[rgb(var(--text-secondary))]">
-            Description of mentorship activities, impact, or number of mentees.
+        <article
+          class="p-6 border border-[rgb(var(--border-color))] rounded-lg"
+        >
+          <h3 class="text-xl font-bold mb-2">
+            Game Dev Utopia (GDU) — Technical Workshop Lead & Design Team Member
+          </h3>
+          <p class="text-[rgb(var(--text-secondary))] mb-2">
+            PICT • 2022 – 2025
           </p>
+          <ul
+            class="list-disc list-inside space-y-2 text-[rgb(var(--text-secondary))]"
+          >
+            <li>
+              Designed and led technical workshops on Blender 3D covering
+              modeling, materials, lighting, and rendering from first
+              principles.
+            </li>
+            <li>
+              Mentored participants to complete independent 3D projects; all
+              attendees produced renders demonstrating applied skills.
+            </li>
+            <li>
+              Served on design team for inter-college events; created primary
+              promotional poster for Paricharcha x Glitched.
+            </li>
+          </ul>
         </article>
       </div>
     </section>
@@ -79,18 +190,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
           <h3 class="text-lg font-bold mb-3">Technical</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Python</span>
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">JavaScript</span>
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">TypeScript</span>
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">React</span>
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Python</span
+            >
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >JavaScript</span
+            >
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >TypeScript</span
+            >
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >React</span
+            >
           </div>
         </div>
         <div class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
           <h3 class="text-lg font-bold mb-3">Tools & Platforms</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Git</span>
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">Docker</span>
-            <span class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full">AWS</span>
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Git</span
+            >
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >Docker</span
+            >
+            <span
+              class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 rounded-full"
+              >AWS</span
+            >
           </div>
         </div>
       </div>
