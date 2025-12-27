@@ -18,7 +18,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
     <!-- Floating navbar island (transitions to sticky top) -->
     <div class="home-island sticky z-40 hidden md:block">
       <nav
-        class="glass-island px-4 py-2 rounded-full border shadow-lg flex items-center gap-2"
+        class="glass-island px-4 py-2 rounded-full border flex items-center gap-2"
       >
         <a href="/" class="island-link island-active">Home</a>
         <a href="/academics" class="island-link">Academics</a>
@@ -76,11 +76,11 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
       </div>
 
       <!-- Right: Main content (Hero + Resume-like sections) -->
-      <div>
+      <div class="main-column">
         <!-- Hero: full viewport -->
         <section
           id="hero"
-          class="min-h-screen py-10 md:py-16 lg:py-20 flex flex-col justify-center"
+          class="min-h-screen pt-8 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20 flex flex-col justify-start"
         >
           <div class="max-w-3xl">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
@@ -267,7 +267,6 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
     }
     body[data-nav-scrolled="true"] .home-island {
       top: 0.75rem;
-      transform: translateX(calc((280px + 2rem) / 2));
     }
 
     /* Liquid glass island styling */
@@ -370,7 +369,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
       position: absolute;
       right: 0;
       top: 0;
-      bottom: 4rem;
+      bottom: 2rem;
       width: 1px;
       background: rgb(var(--border-color));
       opacity: 1;
@@ -383,7 +382,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
       position: absolute;
       right: 0;
       top: 0;
-      bottom: 4rem;
+      bottom: 2rem;
       width: 1px;
       background: rgb(var(--border-color));
       opacity: 0;
@@ -392,50 +391,65 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
   </style>
 
   <script is:inline>
-    // Navbar: Use IntersectionObserver to detect when hero heading approaches navbar
+    // Navbar: distance-based trigger (no hysteresis)
     (() => {
-      const heroHeading = document.querySelector('#hero h1');
-      const navbar = document.querySelector('.home-island');
-      
+      let navShiftX = 0;
+      const measureNavShift = () => {
+        const main = document.querySelector(".main-column");
+        if (!main || !navbar) return;
+
+        const navRect = navbar.getBoundingClientRect();
+        const mainRect = main.getBoundingClientRect();
+
+        const navCenter = navRect.left + navRect.width / 2;
+        const mainCenter = mainRect.left + mainRect.width / 2;
+
+        navShiftX = Math.round(mainCenter - navCenter);
+      };
+
+      const heroHeading = document.querySelector("#hero h1");
+      const navbar = document.querySelector(".home-island");
       if (!heroHeading || !navbar) return;
-      
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            // When hero heading is intersecting with navbar area, shift navbar
-            document.body.setAttribute(
-              'data-nav-scrolled',
-              entry.isIntersecting ? 'false' : 'true'
-            );
-          });
-        },
-        {
-          rootMargin: '-80px 0px 0px 0px', // Account for navbar position
-          threshold: 0
-        }
-      );
-      
-      observer.observe(heroHeading);
+      const checkNav = () => {
+        const navRect = navbar.getBoundingClientRect();
+        const heroRect = heroHeading.getBoundingClientRect();
+        const distance = heroRect.top - navRect.bottom;
+
+        const scrolled = distance < 20;
+        document.body.setAttribute(
+          "data-nav-scrolled",
+          scrolled ? "true" : "false",
+        );
+
+        navbar.style.transform = scrolled
+          ? `translateX(${navShiftX}px)`
+          : "translateX(0px)";
+      };
+
+      window.addEventListener("scroll", checkNav, { passive: true });
+      window.addEventListener("resize", () => {
+        measureNavShift();
+        checkNav();
+      });
+      measureNavShift();
+      checkNav();
     })();
-    
-    // Sidebar: Watch when it reaches near the top of viewport
+
+    // Sidebar: top-edge trigger (no hysteresis)
     (() => {
-      function checkSidebar() {
-        const sidebar = document.querySelector('.home-sidebar');
+      const checkSidebar = () => {
+        const sidebar = document.querySelector(".home-sidebar");
         if (!sidebar) return;
-        
+
         const sidebarRect = sidebar.getBoundingClientRect();
-        
-        // Trigger when sidebar top is within 10px of viewport top
-        if (sidebarRect.top <= 10) {
-          document.body.setAttribute('data-sidebar-scrolled', 'true');
-        } else {
-          document.body.setAttribute('data-sidebar-scrolled', 'false');
-        }
-      }
-      
-      window.addEventListener('scroll', checkSidebar, { passive: true });
-      window.addEventListener('resize', checkSidebar);
+        document.body.setAttribute(
+          "data-sidebar-scrolled",
+          sidebarRect.top <= 10 ? "true" : "false",
+        );
+      };
+
+      window.addEventListener("scroll", checkSidebar, { passive: true });
+      window.addEventListener("resize", checkSidebar);
       checkSidebar();
     })();
   </script>
