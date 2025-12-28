@@ -1,0 +1,471 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+import lgConfig from "../../liquid-glass-config.json";
+
+interface Props {
+    mode?: "floating" | "centered"; // floating for homepage, centered for other pages
+}
+
+const { mode = "floating" } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) => {
+    if (href === "/") {
+        return currentPath === "/";
+    }
+    return currentPath.startsWith(href);
+};
+
+// Serialize config for client-side JavaScript
+const lgConfigJson = JSON.stringify(lgConfig);
+---
+
+<!--
+  The following dummy div is necessary to force Tailwind to generate the 'hidden' and 'md:block' classes
+  for the navbar visibility logic. Do not remove unless you change the navbar breakpoint logic.
+-->
+<div class="hidden md:block" style="display:none !important">Tailwind safelist: hidden md:block</div>
+
+{(mode === "floating" && currentPath === "/") ? (
+    <div class="home-island sticky z-40 hidden md:flex">
+    <nav
+      class="lg-base-pill px-3 py-2 border flex items-center gap-1"
+      data-lg-island
+      data-lg-mode={mode}
+      style="position: relative; overflow: visible;"
+    >
+      <!-- Moving glass selector -->
+      <span
+          class="lg-glass-selector lg-distort"
+          data-lg-selector
+          aria-hidden="true"></span>
+
+      <a
+          href="/"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/") },
+          ]}
+          data-lg-item="true">Home</a
+      >
+      <a
+          href="/academics"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/academics") },
+          ]}
+          data-lg-item="true">Academics</a
+      >
+      <a
+          href="/publications-research-projects"
+          class:list={[
+              "lg-island-link",
+              {
+                  "lg-island-link--highlight": isActive(
+                      "/publications-research-projects",
+                  ),
+              },
+          ]}
+          data-lg-item="true"
+      >
+          Publications, Research &amp; Projects
+      </a>
+      <a
+          href="/art"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/art") },
+          ]}
+          data-lg-item="true">Art</a
+      >
+      <a
+          href="/experience"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/experience") },
+          ]}
+          data-lg-item="true">Experience</a
+      >
+      <a
+          href="/resume"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/resume") },
+          ]}
+          data-lg-item="true">Resume</a
+      >
+
+      <div class="relative ml-1 lg-island-link" data-lg-item="true">
+          <ThemeToggle />
+      </div>
+    </nav>
+  </div>
+) : (mode === "centered" || currentPath !== "/") ? (
+  <div class="sticky top-4 z-40 hidden md:flex md:justify-center">
+    <nav
+      class="lg-base-pill px-3 py-2 border flex items-center gap-1"
+      data-lg-island
+      data-lg-mode={mode}
+      style="position: relative; overflow: visible;"
+    >
+      <!-- Moving glass selector -->
+      <span
+          class="lg-glass-selector lg-distort"
+          data-lg-selector
+          aria-hidden="true"></span>
+
+      <a
+          href="/"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/") },
+          ]}
+          data-lg-item="true">Home</a
+      >
+      <a
+          href="/academics"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/academics") },
+          ]}
+          data-lg-item="true">Academics</a
+      >
+      <a
+          href="/publications-research-projects"
+          class:list={[
+              "lg-island-link",
+              {
+                  "lg-island-link--highlight": isActive(
+                      "/publications-research-projects",
+                  ),
+              },
+          ]}
+          data-lg-item="true"
+      >
+          Publications, Research &amp; Projects
+      </a>
+      <a
+          href="/art"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/art") },
+          ]}
+          data-lg-item="true">Art</a
+      >
+      <a
+          href="/experience"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/experience") },
+          ]}
+          data-lg-item="true">Experience</a
+      >
+      <a
+          href="/resume"
+          class:list={[
+              "lg-island-link",
+              { "lg-island-link--highlight": isActive("/resume") },
+          ]}
+          data-lg-item="true">Resume</a
+      >
+
+      <div class="relative ml-1 lg-island-link" data-lg-item="true">
+          <ThemeToggle />
+      </div>
+    </nav>
+  </div>
+) : null}
+
+<!-- SVG filter for glass distortion -->
+<svg
+    width="0"
+    height="0"
+    aria-hidden="true"
+    focusable="false"
+    style="position:absolute"
+>
+    <filter
+        id="lg-glass-distort"
+        x="-20%"
+        y="-20%"
+        width="140%"
+        height="140%"
+        color-interpolation-filters="sRGB"
+    >
+        <!-- Step 1: Magnification displacement (center zoom) -->
+        <feImage
+            href="/liquid-glass-magnify.png"
+            x="-1"
+            y="-1"
+            width={lgConfig.maps.width}
+            height={lgConfig.maps.height}
+            result="magnify_map"
+            preserveAspectRatio="none"></feImage>
+        <feDisplacementMap
+            in="SourceGraphic"
+            in2="magnify_map"
+            scale={lgConfig.magnification.scale}
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="magnified"></feDisplacementMap>
+
+        <!-- Step 2: Bezel refraction displacement (edge distortion) -->
+        <feImage
+            href="/liquid-glass-displacement.png"
+            x="-1"
+            y="-1"
+            width={lgConfig.maps.width}
+            height={lgConfig.maps.height}
+            result="displacement_map"
+            preserveAspectRatio="none"></feImage>
+        <feDisplacementMap
+            in="magnified"
+            in2="displacement_map"
+            scale={lgConfig.bezel.scale}
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"></feDisplacementMap>
+
+        <!-- Step 3: Specular highlight overlay (smooth gradient) -->
+        <feImage
+            href="/liquid-glass-specular.png"
+            x="-1"
+            y="-1"
+            width={lgConfig.maps.width}
+            height={lgConfig.maps.height}
+            result="specular_layer"
+            preserveAspectRatio="none"></feImage>
+        <feBlend in="specular_layer" in2="displaced" mode="screen"></feBlend>
+    </filter>
+</svg>
+
+<script is:inline define:vars={{ lgConfigJson, mode }}>
+    // Displacement maps are pre-generated by Python script using proper physics
+
+    // Parse config for client-side use
+    const lgConfig = JSON.parse(lgConfigJson);
+
+    // Liquid glass selector: smooth mouse-follow + proximity-based text highlighting
+    (() => {
+        const nav = document.querySelector("[data-lg-island]");
+        const selector = document.querySelector("[data-lg-selector]");
+        if (!nav || !selector) return;
+
+        const items = Array.from(nav.querySelectorAll('[data-lg-item="true"]'));
+        if (items.length === 0) return;
+
+        // State
+        let mouseX = 0,
+            mouseY = 0;
+        let currentX = 0,
+            currentY = 0,
+            currentW = 100,
+            currentH = 44;
+        let targetX = 0,
+            targetY = 0,
+            targetW = 100,
+            targetH = 44;
+        let isHovering = false;
+        let activeItem = null;
+        let raf = null;
+        let lockedY = 0; // Y position locked to navbar center
+
+        // Easing/lerp
+        const lerp = (start, end, factor) => start + (end - start) * factor;
+
+        // Update CSS variables
+        function updateSelectorCSS() {
+            selector.style.setProperty("--lg-x", `${currentX}px`);
+            selector.style.setProperty("--lg-y", `${currentY}px`);
+            selector.style.setProperty("--lg-w", `${currentW}px`);
+            selector.style.setProperty("--lg-h", `${currentH}px`);
+        }
+
+        // Animation loop (linear interpolation)
+        function animate() {
+            const smoothness = 0.185;
+            currentX = lerp(currentX, targetX, smoothness);
+            currentY = lerp(currentY, targetY, smoothness);
+            currentW = lerp(currentW, targetW, smoothness);
+            currentH = lerp(currentH, targetH, smoothness);
+
+            updateSelectorCSS();
+
+            if (
+                Math.abs(currentX - targetX) > 0.01 ||
+                Math.abs(currentY - targetY) > 0.01 ||
+                Math.abs(currentW - targetW) > 0.01 ||
+                Math.abs(currentH - targetH) > 0.01
+            ) {
+                raf = requestAnimationFrame(animate);
+            } else {
+                raf = null;
+            }
+        }
+
+        function startAnimation() {
+            if (!raf) {
+                raf = requestAnimationFrame(animate);
+            }
+        }
+
+        // Snap to active item on page load or click
+        function snapToActive() {
+            const activeLink = nav.querySelector(
+                '[data-lg-item="true"].lg-island-link--highlight',
+            );
+            if (!activeLink) {
+                console.warn("No active item found");
+                return;
+            }
+            const navRect = nav.getBoundingClientRect();
+            const itemRect = activeLink.getBoundingClientRect();
+
+            targetX = itemRect.left - navRect.left;
+            targetY = itemRect.top - navRect.top;
+            targetW = itemRect.width;
+            targetH = itemRect.height;
+
+            // Store the locked Y position - centered on navbar
+            // Calculate center of navbar and center where selector should be
+            const navCenterY = navRect.height / 2;
+            const selectorHalfHeight = lgConfig.selector.hoverHeight / 2; // Half of hover height for centering
+            lockedY = navCenterY - selectorHalfHeight;
+
+            console.log("Selector position:", {
+                targetX,
+                targetY,
+                targetW,
+                targetH,
+            });
+
+            // Instant snap on first load
+            currentX = targetX;
+            currentY = targetY;
+            currentW = targetW;
+            currentH = targetH;
+
+            updateSelectorCSS();
+            activeItem = activeLink;
+        }
+
+        // Find closest item to mouse
+        function findClosestItem(mx, my) {
+            let minDist = Infinity;
+            let closestItem = null;
+
+            for (const item of items) {
+                const rect = item.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dist = Math.hypot(mx - cx, my - cy);
+
+                if (dist < minDist) {
+                    minDist = dist;
+                    closestItem = item;
+                }
+            }
+
+            return { item: closestItem, distance: minDist };
+        }
+
+        // Update text highlight based on proximity
+        function updateHighlight(item) {
+            items.forEach((i) =>
+                i.classList.toggle("lg-island-link--highlight", i === item),
+            );
+        }
+
+        // Mouse move handler
+        function onMouseMove(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            const navRect = nav.getBoundingClientRect();
+
+            // Check if mouse is over navbar
+            const overNav =
+                mouseX >= navRect.left &&
+                mouseX <= navRect.right &&
+                mouseY >= navRect.top &&
+                mouseY <= navRect.bottom;
+
+            if (overNav && !isHovering) {
+                isHovering = true;
+                selector.classList.add("lg-hovering");
+                console.log("Mouse entered navbar");
+            } else if (!overNav && isHovering) {
+                isHovering = false;
+                selector.classList.remove("lg-hovering");
+                console.log("Mouse left navbar");
+                // Restore active item highlighting and snap back
+                const activeLink = nav.querySelector(
+                    '[data-lg-item="true"].lg-island-link--highlight',
+                );
+                if (activeLink) {
+                    activeItem = activeLink;
+                } else {
+                    // If no highlight, restore to first nav item (including button)
+                    activeItem = items[0];
+                    if (activeItem) {
+                        activeItem.classList.add("lg-island-link--highlight");
+                    }
+                }
+                snapToActive();
+                startAnimation();
+            }
+
+            if (!overNav) return;
+
+            // Check centered mode - on non-homepage pages, selector stays centered
+            const navMode = nav.getAttribute("data-lg-mode");
+            if (navMode === "centered") {
+                // Always snap to active item on centered pages (no mouse follow)
+                if (activeItem) {
+                    const itemRect = activeItem.getBoundingClientRect();
+                    targetX = itemRect.left - navRect.left;
+                    targetY = itemRect.top - navRect.top;
+                    targetW = itemRect.width;
+                    targetH = itemRect.height;
+                }
+                startAnimation();
+                return;
+            }
+
+            // Floating mode: Target position is mouse cursor - both X and Y
+            // Expand to hover size on hover for overflow effect
+            targetX = mouseX - navRect.left - lgConfig.selector.hoverWidth / 2;
+            targetY = mouseY - navRect.top - lgConfig.selector.hoverHeight / 2;
+            targetW = 150; // Expand wider than nav items
+            targetH = 80; // Expand taller than nav items
+
+            // Find closest and highlight
+            const { item: closest } = findClosestItem(mouseX, mouseY);
+            updateHighlight(closest);
+
+            startAnimation();
+        }
+
+        // Snap to active on load
+        window.addEventListener("load", snapToActive, { passive: true });
+
+        // Re-snap on resize
+        window.addEventListener("resize", snapToActive, { passive: true });
+
+        // Mouse tracking
+        window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+        // Click on nav items - update active and highlight
+        items.forEach((item) => {
+            item.addEventListener("click", () => {
+                activeItem = item;
+                // Update highlighting immediately
+                items.forEach((i) =>
+                    i.classList.remove("lg-island-link--highlight"),
+                );
+                item.classList.add("lg-island-link--highlight");
+                console.log("Clicked nav item:", activeItem.textContent);
+            });
+        });
+    })();
+</script>

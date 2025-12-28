@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import LiquidGlassNav from "../components/LiquidGlassNav.astro";
 
 const publications = await getCollection("publications");
 const sortedPublications = publications.sort((a, b) => {
@@ -47,6 +48,7 @@ const researchItems = [
     title="Publications, Research, and Projects - Piyush Jain"
     description="Consolidated publications, research experience, and personal projects"
 >
+    <LiquidGlassNav mode="centered" />
     <div class="max-w-4xl mx-auto">
         <h1 class="text-4xl md:text-5xl font-bold mb-10">
             Publications, Research, and Projects

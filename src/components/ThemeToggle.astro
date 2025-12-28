@@ -3,10 +3,12 @@
 ---
 
 <button
-  id="theme-toggle"
+  data-theme-toggle
   type="button"
   aria-label="Toggle theme"
-  class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+  class="p-2 rounded-md transition-colors"
+  onclick="(function(e){e.preventDefault();e.stopPropagation();const html=document.documentElement;const isDark=html.classList.contains('dark');if(isDark){html.classList.remove('dark');localStorage.setItem('theme','light')}else{html.classList.add('dark');localStorage.setItem('theme','dark')}})(event)"
+  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); this.click(); }"
 >
   <svg
     id="theme-toggle-light-icon"
@@ -18,6 +20,7 @@
       d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
     ></path>
   </svg>
+
   <svg
     id="theme-toggle-dark-icon"
     class="w-5 h-5 block dark:hidden"
@@ -28,42 +31,3 @@
     ></path>
   </svg>
 </button>
-
-<script>
-  // Use event delegation and wait for button to be ready
-  function attachThemeToggle() {
-    // Get ALL theme toggle buttons and attach to visible ones only
-    const themeToggles = document.querySelectorAll("#theme-toggle");
-
-    themeToggles.forEach((themeToggle) => {
-      // Skip if button is in a hidden nav
-      const nav = themeToggle.closest(".site-nav");
-      if (nav && getComputedStyle(nav).display === "none") {
-        return;
-      }
-
-      themeToggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const htmlElement = document.documentElement;
-        const isDark = htmlElement.classList.contains("dark");
-
-        if (isDark) {
-          htmlElement.classList.remove("dark");
-          localStorage.setItem("theme", "light");
-        } else {
-          htmlElement.classList.add("dark");
-          localStorage.setItem("theme", "dark");
-        }
-      });
-    });
-  }
-
-  // Try immediately
-  attachThemeToggle();
-
-  // Also try after DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", attachThemeToggle);
-  }
-</script>

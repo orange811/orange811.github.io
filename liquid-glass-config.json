@@ -1,0 +1,34 @@
+{
+    "selector": {
+        "hoverWidth": 150,
+        "hoverHeight": 80,
+        "cornerRadius": 31.5,
+        "comment": "Selector dimensions when hovering over nav items"
+    },
+    "maps": {
+        "width": 152,
+        "height": 82,
+        "comment": "Displacement map size (selector + 1px padding on all sides)"
+    },
+    "magnification": {
+        "lensDiameter": 240,
+        "radiusOfCurvatureFactor": 1.2,
+        "maxDisplacement": 30,
+        "scale": 60,
+        "comment": "Large circular lens settings for center magnification"
+    },
+    "bezel": {
+        "widthFraction": 0.4,
+        "glassThickness": 25,
+        "maxDisplacement": 28.35,
+        "scale": 35,
+        "comment": "Edge refraction/bezel distortion settings"
+    },
+    "specular": {
+        "angle": 40,
+        "edgeWidth": 10,
+        "edgeFalloffPower": 3.0,
+        "angularSharpnessPower": 3.0,
+        "comment": "Specular highlight rim lighting settings"
+    }
+}

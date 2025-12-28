@@ -8,6 +8,7 @@ const { title = "Piyush Jain", description = "Portfolio & Personal Website" } =
   Astro.props;
 import SiteNav from "../components/SiteNav.astro";
 import "../styles/global.css";
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -41,7 +42,7 @@ import "../styles/global.css";
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
-    <SiteNav />
+    {currentPath === "/" ? <SiteNav class="md:hidden" /> : <SiteNav />}
     <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <slot />
     </main>

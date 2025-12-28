@@ -23,12 +23,12 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <nav
-  class="site-nav border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50"
+  class="site-nav md:hidden border-b border-[rgb(var(--border-color))] sticky top-0 bg-[rgb(var(--bg-primary))] z-50"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-center h-16">
-      <!-- Desktop Navigation (centered) -->
-      <div class="hidden md:flex md:items-center md:space-x-6">
+      <!-- Desktop Navigation (centered) - Hidden since liquid glass nav is used on desktop -->
+      <div class="hidden">
         {
           navLinks.map((link) => (
             <a

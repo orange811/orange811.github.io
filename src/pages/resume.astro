@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LiquidGlassNav from "../components/LiquidGlassNav.astro";
 ---
 
 <BaseLayout
   title="Resume - Piyush Jain"
   description="Complete professional resume"
 >
+  <LiquidGlassNav mode="centered" />
   <div class="max-w-4xl mx-auto">
     <!-- Header -->
     <div
@@ -23,7 +25,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <div class="grid sm:grid-cols-2 gap-3 text-[rgb(var(--text-secondary))]">
         <p>
           Phone: <span class="text-[rgb(var(--text-secondary))]"
-            >Available upon request</span>
+            >Available upon request</span
+          >
         </p>
         <p>
           Email: <span class="text-[rgb(var(--text-secondary))]"
