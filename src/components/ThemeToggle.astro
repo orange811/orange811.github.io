@@ -7,8 +7,6 @@
   type="button"
   aria-label="Toggle theme"
   class="p-2 rounded-md transition-colors"
-  onclick="(function(e){e.preventDefault();e.stopPropagation();const html=document.documentElement;const isDark=html.classList.contains('dark');if(isDark){html.classList.remove('dark');localStorage.setItem('theme','light')}else{html.classList.add('dark');localStorage.setItem('theme','dark')}})(event)"
-  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); this.click(); }"
 >
   <svg
     id="theme-toggle-light-icon"
@@ -31,3 +29,41 @@
     ></path>
   </svg>
 </button>
+
+<script is:inline>
+  (function attachThemeToggle() {
+    const themeToggles = document.querySelectorAll("[data-theme-toggle]");
+    themeToggles.forEach((themeToggle) => {
+      if (themeToggle.dataset._attached) return;
+      themeToggle.dataset._attached = "1";
+
+      const nav = themeToggle.closest(".site-nav");
+      if (nav && getComputedStyle(nav).display === "none") return;
+
+      const toggle = () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains("dark");
+        if (isDark) {
+          html.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          html.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+      };
+
+      themeToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle();
+      });
+
+      themeToggle.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          toggle();
+        }
+      });
+    });
+  })();
+</script>

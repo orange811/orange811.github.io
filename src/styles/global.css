@@ -2,25 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* -------------------------------------------------------------------------- */
+/* 1. Global Variables & Themes                                               */
+/* -------------------------------------------------------------------------- */
 @layer base {
     :root {
+        /* Core Palette (Space separated for modern RGB syntax) */
+        --space-indigo-bright: 80 120 255;
+        /* #5078FF */
+        --jet-black: 33 51 62;
+        /* #21333E */
+        --black: 6 9 10;
+        /* #06090A */
+        --space-indigo: 30 37 59;
+        /* #1E253B */
+        --ink-black: 20 29 35;
+        /* #141D23 */
+        --jet-black-2: 30 46 55;
+        /* #1E2E37 */
+
+        /* Theming Variables */
         --bg-primary: 255 255 255;
         --bg-secondary: 248 250 252;
         --text-primary: 15 23 42;
         --text-secondary: 71 85 105;
         --border-color: 226 232 240;
+
+        /* Liquid Glass Variables */
+        --lg-mx: 0px;
+        --lg-my: 0px;
+        --lg-tilt: 0deg;
     }
 
     .dark {
-        --bg-primary: 15 23 42;
-        --bg-secondary: 30 41 59;
-        --text-primary: 248 250 252;
-        --text-secondary: 203 213 225;
-        --border-color: 51 65 85;
+        --bg-primary: var(--black);
+        --bg-secondary: var(--ink-black);
+        --text-primary: 226 232 240;
+        --text-secondary: 148 163 184;
+        --border-color: var(--space-indigo);
     }
 
+    /* Reset Defaults */
     body {
-        @apply bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] transition-colors duration-200;
+        background-color: rgb(var(--bg-primary));
+        color: rgb(var(--text-primary));
+        transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 200ms;
     }
 
     h1,
@@ -29,84 +57,98 @@
     h4,
     h5,
     h6 {
-        @apply font-bold text-[rgb(var(--text-primary))];
+        font-weight: 700;
+        color: rgb(var(--text-primary));
     }
 
     a {
-        @apply text-[rgb(var(--text-primary))] hover:text-slate-600 dark:hover:text-slate-300 transition-colors;
+        color: rgb(var(--text-primary));
+        transition: color 0.2s;
+    }
+
+    a:hover {
+        @apply text-slate-600 dark:text-slate-300;
     }
 }
 
 /* -------------------------------------------------------------------------- */
-/* Liquid Glass (reusable) utilities                                           */
+/* 2. Custom Utilities & Backgrounds                                          */
 /* -------------------------------------------------------------------------- */
 
-:root {
-    /* selector "alive" highlight offsets (A2) */
-    --lg-mx: 0px;
-    --lg-my: 0px;
-    --lg-tilt: 0deg;
+/* Home hero background image */
+.home-bg {
+    /* Ensure hero_banner.jpg exists in your /public folder */
+    background:
+        linear-gradient(rgb(6 9 10 / 0.82), rgb(6 9 10 / 0.92)),
+        url('/hero_banner.jpg') center/cover no-repeat;
 }
 
-/* Base pill (NOT glass). Solid/gradient, light + dark. */
+.home-bg main {
+    background: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Liquid Glass Components                                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Base pill (The track behind the selector) */
 .lg-base-pill {
     position: relative;
     border-radius: 999px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
+    /* FIXED: Syntax changed from rgba(var(), 0.13) to rgb(var() / 0.13) */
+    border: 1px solid rgb(var(--jet-black) / 0.13);
     background: linear-gradient(180deg,
-            rgb(255, 255, 255) 0%,
-            rgb(248, 250, 252) 50%,
-            rgb(241, 245, 249) 100%);
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+            rgb(255 255 255) 0%,
+            rgb(248 250 252) 50%,
+            rgb(241 245 249) 100%);
+    box-shadow: 0 1px 3px rgb(15 23 42 / 0.08);
 }
 
 .dark .lg-base-pill {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: rgb(var(--space-indigo) / 0.22);
     background: linear-gradient(180deg,
-            rgb(30, 41, 59) 0%,
-            rgb(20, 31, 49) 50%,
-            rgb(15, 23, 42) 100%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20);
+            rgb(var(--jet-black)) 0%,
+            rgb(var(--space-indigo)) 50%,
+            rgb(var(--ink-black)) 100%);
+    box-shadow: 0 1px 3px rgb(var(--black) / 0.20);
 }
 
-/* Optional subtle "rim light" inside the base pill */
+/* Inner rim light */
 .lg-base-pill::before {
     content: "";
     position: absolute;
     inset: 1px;
     border-radius: inherit;
     pointer-events: none;
-    background: linear-gradient(180deg,
-            rgba(255, 255, 255, 0.55),
-            rgba(255, 255, 255, 0.00) 55%);
-    opacity: 0.35;
+    background: linear-gradient(170deg,
+            rgb(255 255 255 / 0.55),
+            rgb(255 255 255 / 0.00) 55%);
+    opacity: 0.15;
 }
 
-/* The moving GLASS selector */
+/* The Moving Selector */
 .lg-glass-selector {
     position: absolute;
     left: var(--lg-x, 0px);
     top: var(--lg-y, 0px);
     width: var(--lg-w, 100px);
-    height: var(--lg-h, 44px);
+    height: var(--lg-h, 30px);
     border-radius: 999px;
     pointer-events: none;
-    z-index: 1;
+    z-index: 21;
 
-    /* Default: opaque solid indicator (not glass) */
-    background: rgba(30, 41, 59, 0.08);
-    border: 1px solid rgba(30, 41, 59, 0.12);
-    /* No glass effect by default */
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    /* Default State */
+    background: rgb(var(--space-indigo) / 0.13);
+    border: 2px solid transparent;
+    /* Replaced 'red' debug border */
 
-    /* Enhanced shadow for visibility in light theme */
+    /* Shadow stack */
     box-shadow:
-        0 2px 8px rgba(15, 23, 42, 0.12),
-        0 4px 16px rgba(15, 23, 42, 0.08),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        0 2px 8px rgb(15 23 42 / 0.12),
+        0 4px 16px rgb(15 23 42 / 0.08),
+        inset 0 0 0 1px rgb(255 255 255 / 0.15);
 
-    /* Smooth movement with easing */
+    /* Performance & Transitions */
     transition:
         left 380ms cubic-bezier(0.34, 1.56, 0.64, 1),
         top 380ms cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -118,82 +160,52 @@
     will-change: left, top, width, height;
 }
 
-/* Glass effect only on hover */
+/* Hover State - Glass Effect */
 .lg-glass-selector.lg-hovering {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.20);
-    /* Apply subtle displacement filter for refraction */
+    background: rgb(255 255 255 / 0.06);
+    border: none;
+    /* IMPORTANT: Ensure an SVG filter with id="lg-glass-distort" exists in your HTML/Layout */
     backdrop-filter: url(#lg-glass-distort);
     -webkit-backdrop-filter: url(#lg-glass-distort);
 }
 
-/* Edge rim lighting - radial gradient that follows mouse */
-.lg-glass-selector::before {
-    display: none;
-}
-
-/* Remove bottom rim light */
-.lg-glass-selector::after {
-    display: none;
-}
-
-/* Dark mode adjustments */
+/* Dark Mode Selector */
 .dark .lg-glass-selector {
-    background: rgba(226, 232, 240, 0.08);
-    border-color: rgba(226, 232, 240, 0.12);
+    background: rgb(var(--space-indigo) / 0.13);
+    border: 1.5px solid rgb(var(--space-indigo) / 0.55);
     box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.15),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        0 2px 8px rgb(var(--black) / 0.18),
+        inset 0 0 0 1px rgb(var(--text-secondary) / 0.08);
 }
 
 .dark .lg-glass-selector.lg-hovering {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgb(var(--text-secondary) / 0.07);
+    border: none;
 }
 
-.dark .lg-glass-selector::before {
-    background:
-        radial-gradient(circle at calc(50% + var(--lg-mx, 0px)) calc(50% + var(--lg-my, 0px)),
-            transparent 20%,
-            rgba(255, 255, 255, 0.25) 60%,
-            rgba(255, 255, 255, 0.4) 75%,
-            transparent 95%);
-    opacity: 0.7;
-}
-
-/* The filter is applied as backdrop-filter, not regular filter */
-.lg-glass-selector.lg-distort {
-    /* Filter applied via backdrop-filter below, not here */
-}
-
-/* Nav link styles for island */
+/* Nav Links */
 .lg-island-link {
     position: relative;
-    /* No z-index - links must be behind glass selector for distortion to work */
-    padding: 0.65rem 1rem;
+    padding: 0.35rem 0.7rem;
     border-radius: 999px;
     font-weight: 600;
-    font-size: 0.875rem;
-    line-height: 1.2;
-    color: rgb(30, 41, 59);
-    transition:
-        color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.8125rem;
+    line-height: 1.1;
+    color: rgb(30 41 59);
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms;
     white-space: nowrap;
     opacity: 0.85;
 }
 
 .dark .lg-island-link {
-    color: rgb(226, 232, 240);
-    opacity: 0.85;
+    color: rgb(var(--text-primary));
 }
 
-/* Proximity-based highlight (applied via JS based on distance) */
 .lg-island-link--highlight {
-    color: rgb(96, 165, 250) !important;
+    color: rgb(100, 37, 218);
     opacity: 1 !important;
 }
 
 .dark .lg-island-link--highlight {
-    color: rgb(147, 197, 253) !important;
+    color: rgb(166, 123, 245);
 }

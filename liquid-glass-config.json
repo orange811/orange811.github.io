@@ -2,6 +2,7 @@
     "selector": {
         "hoverWidth": 150,
         "hoverHeight": 80,
+        "yLock": true,
         "cornerRadius": 31.5,
         "comment": "Selector dimensions when hovering over nav items"
     },
@@ -14,21 +15,21 @@
         "lensDiameter": 240,
         "radiusOfCurvatureFactor": 1.2,
         "maxDisplacement": 30,
-        "scale": 60,
+        "scale": 70,
         "comment": "Large circular lens settings for center magnification"
     },
     "bezel": {
-        "widthFraction": 0.4,
+        "widthFraction": 0.5,
         "glassThickness": 25,
         "maxDisplacement": 28.35,
-        "scale": 35,
+        "scale": 15,
         "comment": "Edge refraction/bezel distortion settings"
     },
     "specular": {
-        "angle": 40,
-        "edgeWidth": 10,
-        "edgeFalloffPower": 3.0,
-        "angularSharpnessPower": 3.0,
+        "angle": 135,
+        "edgeWidth": 15,
+        "edgeFalloffPower": 2.8,
+        "angularSharpnessPower": 3,
         "comment": "Specular highlight rim lighting settings"
     }
 }
