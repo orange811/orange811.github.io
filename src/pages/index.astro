@@ -13,365 +13,428 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
   title="Piyush Jain - Portfolio"
   description="Welcome to my portfolio and personal website"
 >
-  <!-- Content wrapper for proper navbar positioning -->
+  <div id="hero-underlay"></div>
+
   <div class="container-wrapper">
-    <!-- Floating navbar island (transitions to sticky top) -->
-    <LiquidGlassNav mode="floating" />
-    <!-- Page content grid: left about sidebar + right main -->
-    <div class="lg:grid lg:grid-cols-[minmax(280px,380px)_1fr] lg:gap-8">
-      <!-- Left: About / Identity Sidebar (mobile becomes top card) -->
-      <div class="lg:block">
-        <!-- Mobile: stacked about card -->
-        <div class="lg:hidden mb-6">
-          <aside
-            class="rounded-2xl border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))] p-6"
+    <!-- Content wrapper for proper navbar positioning -->
+    <div class="container-wrapper">
+      <!-- Floating navbar island (transitions to sticky top) -->
+      <LiquidGlassNav mode="floating" />
+      <!-- Page content grid: left about sidebar + right main -->
+      <div class="lg:grid lg:grid-cols-[minmax(280px,380px)_1fr] lg:gap-8">
+        <!-- Left: About / Identity Sidebar (mobile becomes top card) -->
+        <div class="lg:block">
+          <!-- Mobile: stacked about card -->
+          <div class="lg:hidden mb-6">
+            <aside
+              class="rounded-2xl border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))] p-6"
+            >
+              <h2 class="text-2xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
+              <p class="text-[rgb(var(--text-secondary))]">
+                About me – identity blurb. Content coming soon.
+              </p>
+            </aside>
+          </div>
+
+          <!-- Desktop: morphing tall card -> full-height sticky sidebar -->
+          <div
+            class="hidden lg:block lg:sticky lg:top-0 home-sidebar-container"
           >
-            <h2 class="text-2xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
-            <p class="text-[rgb(var(--text-secondary))]">
-              About me – identity blurb. Content coming soon.
-            </p>
-          </aside>
+            <aside
+              class="home-sidebar border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))]"
+            >
+              <div class="p-6">
+                <h2 class="text-3xl font-bold mb-3">Hi, I'm Piyush Jain</h2>
+                <p class="text-[rgb(var(--text-secondary))] mb-4">
+                  I work across research, engineering, and creative practice.
+                </p>
+                <div class="flex gap-3">
+                  <a
+                    href="/publications-research-projects"
+                    class="px-4 py-2 rounded-md bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
+                    >View Work</a
+                  >
+                  <a
+                    href="/resume"
+                    class="px-4 py-2 rounded-md border border-[rgb(var(--border-color))] hover:bg-slate-50 dark:hover:bg-slate-800"
+                    >Resume</a
+                  >
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
 
-        <!-- Desktop: morphing tall card -> full-height sticky sidebar -->
-        <div class="hidden lg:block lg:sticky lg:top-0 home-sidebar-container">
-          <aside
-            class="home-sidebar border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))]"
+        <!-- Right: Main content (Hero + Resume-like sections) -->
+        <div class="main-column">
+          <!-- Hero: full viewport -->
+          <section
+            id="hero"
+            class="min-h-screen pt-8 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20 flex flex-col justify-start relative overflow-hidden"
           >
-            <div class="p-6">
-              <h2 class="text-3xl font-bold mb-3">Hi, I'm Piyush Jain</h2>
-              <p class="text-[rgb(var(--text-secondary))] mb-4">
-                I work across research, engineering, and creative practice.
+            <div class="max-w-3xl">
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                Hi, I'm <span class="text-slate-700 dark:text-slate-300"
+                  >Piyush Jain</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-[rgb(var(--text-secondary))] mb-8"
+              >
+                Featured work and directions below. Explore publications,
+                research, and projects.
               </p>
-              <div class="flex gap-3">
+              <div class="flex flex-wrap gap-4 mb-10">
                 <a
                   href="/publications-research-projects"
-                  class="px-4 py-2 rounded-md bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
-                  >View Work</a
+                  class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+                  >Explore Work</a
                 >
                 <a
                   href="/resume"
-                  class="px-4 py-2 rounded-md border border-[rgb(var(--border-color))] hover:bg-slate-50 dark:hover:bg-slate-800"
-                  >Resume</a
+                  class="px-6 py-3 border border-[rgb(var(--border-color))] rounded-md font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >View Resume</a
                 >
               </div>
             </div>
-          </aside>
+
+            <!-- Featured Projects grid (layout placeholders or real items) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {
+                featured && featured.length > 0
+                  ? featured.map((item) => (
+                      <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
+                        <h3 class="text-lg font-semibold mb-1">
+                          {item.data?.title ?? "Featured"}
+                        </h3>
+                        <p class="text-sm text-[rgb(var(--text-secondary))] line-clamp-3">
+                          {item.data?.description ?? "Featured item"}
+                        </p>
+                      </div>
+                    ))
+                  : [1, 2, 3].map((n) => (
+                      <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
+                        <h3 class="text-lg font-semibold mb-1">Featured</h3>
+                        <p class="text-sm text-[rgb(var(--text-secondary))]">
+                          Coming soon
+                        </p>
+                      </div>
+                    ))
+              }
+            </div>
+          </section>
+
+          <!-- Resume-like scroll sections -->
+          <section class="py-10">
+            <h2 class="text-2xl font-bold mb-4">Academics</h2>
+            <p class="text-[rgb(var(--text-secondary))] mb-3">
+              Content coming soon.
+            </p>
+            <a href="/academics" class="text-sm font-medium underline"
+              >See more</a
+            >
+          </section>
+
+          <section class="py-10 border-t border-[rgb(var(--border-color))]">
+            <h2 class="text-2xl font-bold mb-4">
+              Publications, Research & Projects
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+              {
+                (publications?.slice(0, 3) || []).map((p) => (
+                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
+                    <div class="text-sm font-semibold">
+                      {p.data?.title ?? "Publication"}
+                    </div>
+                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                      {p.data?.venue ?? ""}
+                    </div>
+                  </div>
+                ))
+              }
+              {
+                (projects?.slice(0, 3) || []).map((prj) => (
+                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
+                    <div class="text-sm font-semibold">
+                      {prj.data?.title ?? "Project"}
+                    </div>
+                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                      {prj.data?.description ?? ""}
+                    </div>
+                  </div>
+                ))
+              }
+              {
+                (publications?.length ?? 0) + (projects?.length ?? 0) === 0 && (
+                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
+                    <div class="text-sm">Content coming soon.</div>
+                  </div>
+                )
+              }
+            </div>
+            <a
+              href="/publications-research-projects"
+              class="text-sm font-medium underline">See more</a
+            >
+          </section>
+
+          <section class="py-10 border-t border-[rgb(var(--border-color))]">
+            <h2 class="text-2xl font-bold mb-4">Art</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+              {
+                (art?.slice(0, 3) || []).map((a) => (
+                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
+                    <div class="text-sm font-semibold">
+                      {a.data?.title ?? "Art"}
+                    </div>
+                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                      {a.data?.medium ?? ""}
+                    </div>
+                  </div>
+                ))
+              }
+              {
+                (art?.length ?? 0) === 0 && (
+                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
+                    <div class="text-sm">Content coming soon.</div>
+                  </div>
+                )
+              }
+            </div>
+            <a href="/art" class="text-sm font-medium underline">See more</a>
+          </section>
+
+          <section class="py-10 border-t border-[rgb(var(--border-color))]">
+            <h2 class="text-2xl font-bold mb-4">Experience</h2>
+            <p class="text-[rgb(var(--text-secondary))] mb-3">
+              Content coming soon.
+            </p>
+            <a href="/experience" class="text-sm font-medium underline"
+              >See more</a
+            >
+          </section>
+
+          <section class="py-10 border-t border-[rgb(var(--border-color))]">
+            <h2 class="text-2xl font-bold mb-4">Resume</h2>
+            <p class="text-[rgb(var(--text-secondary))] mb-3">
+              Content coming soon.
+            </p>
+            <a href="/resume" class="text-sm font-medium underline">See more</a>
+          </section>
         </div>
       </div>
-
-      <!-- Right: Main content (Hero + Resume-like sections) -->
-      <div class="main-column">
-        <!-- Hero: full viewport -->
-        <section
-          id="hero"
-          class="min-h-screen pt-8 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20 flex flex-col justify-start relative overflow-hidden"
-        >
-          <div class="max-w-3xl">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Hi, I'm <span class="text-slate-700 dark:text-slate-300"
-                >Piyush Jain</span
-              >
-            </h1>
-            <p
-              class="text-lg md:text-xl text-[rgb(var(--text-secondary))] mb-8"
-            >
-              Featured work and directions below. Explore publications,
-              research, and projects.
-            </p>
-            <div class="flex flex-wrap gap-4 mb-10">
-              <a
-                href="/publications-research-projects"
-                class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
-                >Explore Work</a
-              >
-              <a
-                href="/resume"
-                class="px-6 py-3 border border-[rgb(var(--border-color))] rounded-md font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-                >View Resume</a
-              >
-            </div>
-          </div>
-
-          <!-- Featured Projects grid (layout placeholders or real items) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {
-              featured && featured.length > 0
-                ? featured.map((item) => (
-                    <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
-                      <h3 class="text-lg font-semibold mb-1">
-                        {item.data?.title ?? "Featured"}
-                      </h3>
-                      <p class="text-sm text-[rgb(var(--text-secondary))] line-clamp-3">
-                        {item.data?.description ?? "Featured item"}
-                      </p>
-                    </div>
-                  ))
-                : [1, 2, 3].map((n) => (
-                    <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
-                      <h3 class="text-lg font-semibold mb-1">Featured</h3>
-                      <p class="text-sm text-[rgb(var(--text-secondary))]">
-                        Coming soon
-                      </p>
-                    </div>
-                  ))
-            }
-          </div>
-        </section>
-
-        <!-- Resume-like scroll sections -->
-        <section class="py-10 border-t border-[rgb(var(--border-color))]">
-          <h2 class="text-2xl font-bold mb-4">Academics</h2>
-          <p class="text-[rgb(var(--text-secondary))] mb-3">
-            Content coming soon.
-          </p>
-          <a href="/academics" class="text-sm font-medium underline">See more</a
-          >
-        </section>
-
-        <section class="py-10 border-t border-[rgb(var(--border-color))]">
-          <h2 class="text-2xl font-bold mb-4">
-            Publications, Research & Projects
-          </h2>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
-            {
-              (publications?.slice(0, 3) || []).map((p) => (
-                <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                  <div class="text-sm font-semibold">
-                    {p.data?.title ?? "Publication"}
-                  </div>
-                  <div class="text-xs text-[rgb(var(--text-secondary))]">
-                    {p.data?.venue ?? ""}
-                  </div>
-                </div>
-              ))
-            }
-            {
-              (projects?.slice(0, 3) || []).map((prj) => (
-                <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                  <div class="text-sm font-semibold">
-                    {prj.data?.title ?? "Project"}
-                  </div>
-                  <div class="text-xs text-[rgb(var(--text-secondary))]">
-                    {prj.data?.description ?? ""}
-                  </div>
-                </div>
-              ))
-            }
-            {
-              (publications?.length ?? 0) + (projects?.length ?? 0) === 0 && (
-                <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                  <div class="text-sm">Content coming soon.</div>
-                </div>
-              )
-            }
-          </div>
-          <a
-            href="/publications-research-projects"
-            class="text-sm font-medium underline">See more</a
-          >
-        </section>
-
-        <section class="py-10 border-t border-[rgb(var(--border-color))]">
-          <h2 class="text-2xl font-bold mb-4">Art</h2>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
-            {
-              (art?.slice(0, 3) || []).map((a) => (
-                <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                  <div class="text-sm font-semibold">
-                    {a.data?.title ?? "Art"}
-                  </div>
-                  <div class="text-xs text-[rgb(var(--text-secondary))]">
-                    {a.data?.medium ?? ""}
-                  </div>
-                </div>
-              ))
-            }
-            {
-              (art?.length ?? 0) === 0 && (
-                <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                  <div class="text-sm">Content coming soon.</div>
-                </div>
-              )
-            }
-          </div>
-          <a href="/art" class="text-sm font-medium underline">See more</a>
-        </section>
-
-        <section class="py-10 border-t border-[rgb(var(--border-color))]">
-          <h2 class="text-2xl font-bold mb-4">Experience</h2>
-          <p class="text-[rgb(var(--text-secondary))] mb-3">
-            Content coming soon.
-          </p>
-          <a href="/experience" class="text-sm font-medium underline"
-            >See more</a
-          >
-        </section>
-
-        <section class="py-10 border-t border-[rgb(var(--border-color))]">
-          <h2 class="text-2xl font-bold mb-4">Resume</h2>
-          <p class="text-[rgb(var(--text-secondary))] mb-3">
-            Content coming soon.
-          </p>
-          <a href="/resume" class="text-sm font-medium underline">See more</a>
-        </section>
-      </div>
     </div>
-  </div>
 
-  <!-- Home-only styles and behavior -->
-  <style is:global>
-    html,
-    body {
-      overflow-x: clip;
-    }
-
-    .container-wrapper {
-      max-width: min(96vw, 1600px);
-      margin: 0 auto;
-      padding: 0 1rem;
-      position: relative;
-    }
-
-    /* Hide normal navbar on home page desktop only (mobile should show it) */
-    @media (min-width: 768px) {
-      body .site-nav {
-        display: none !important;
-        visibility: hidden;
+    <!-- Home-only styles and behavior -->
+    <style is:global>
+      html,
+      body {
+        overflow-x: clip;
       }
-    }
 
-    /* Island positioning */
-    .home-island {
-      top: 1rem;
-      justify-content: center;
-      position: sticky;
-      transition:
-        top 300ms cubic-bezier(0.4, 0, 0.2, 1),
-        transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    body[data-nav-scrolled="true"] .home-island {
-      top: 0.75rem;
-      transform: translateX(var(--nav-shift-x, 0px));
-    }
+      #hero-underlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0; /* JS will set this */
+        z-index: 0;
+        pointer-events: none;
+        background: none; /* No image by default (Light Mode) */
+      }
 
-    /* Sidebar container positioning */
-    .home-sidebar-container {
-      margin-top: 20vh;
-      transition: margin-top 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    body[data-sidebar-scrolled="true"] .home-sidebar-container {
-      margin-top: 0;
-    }
+      /* 2. VISUAL STYLES (Apply Image ONLY in Dark Mode) */
+      .dark #hero-underlay {
+        background:
+    /* Layer 1: Fade to dark theme bg at the bottom */
+          linear-gradient(
+            to bottom,
+            transparent 80%,
+            rgb(var(--bg-primary)) 100%
+          ),
+          /* Layer 2: Dark tint overlay */
+          linear-gradient(rgba(9, 9, 10, 0.5), rgba(6, 9, 10, 0.7)),
+          /* Layer 3: The Image */ url("/hero_banner.jpg");
 
-    .home-sidebar {
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-      min-height: 100vh;
-      padding: 1.5rem;
-      position: relative;
-      transition:
-        border-radius 300ms cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
-        background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
+        background-position: center top;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
 
-    body[data-sidebar-scrolled="true"] .home-sidebar {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-color: transparent;
-      border-bottom-color: transparent;
-    }
+      /* Hide normal navbar on home page desktop only (mobile should show it) */
+      @media (min-width: 768px) {
+        body .site-nav {
+          display: none !important;
+          visibility: hidden;
+        }
+      }
 
-    body[data-sidebar-scrolled="true"] .home-sidebar::after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 2rem;
-      width: 1px;
-      background: rgb(var(--border-color));
-      opacity: 1;
-      transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
+      /* Island positioning */
+      .home-island {
+        top: 1rem;
+        justify-content: center;
+        position: sticky;
+        transition:
+          top 300ms cubic-bezier(0.4, 0, 0.2, 1),
+          transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      body[data-nav-scrolled="true"] .home-island {
+        top: 0.75rem;
+        transform: translateX(var(--nav-shift-x, 0px));
+      }
 
-    .home-sidebar::after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 2rem;
-      width: 1px;
-      background: rgb(var(--border-color));
-      opacity: 0;
-      transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  </style>
+      /* Sidebar container positioning */
+      .home-sidebar-container {
+        margin-top: 20vh;
+        transition: margin-top 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      body[data-sidebar-scrolled="true"] .home-sidebar-container {
+        margin-top: 0;
+      }
 
-  <script is:inline>
-    // Navbar: distance-based trigger (no hysteresis)
-    (() => {
-      const heroHeading = document.querySelector("#hero h1");
-      const navbar = document.querySelector(".home-island");
-      if (!heroHeading || !navbar) return;
+      .home-sidebar {
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        min-height: 100vh;
+        padding: 1.5rem;
+        position: relative;
+        transition:
+          border-radius 300ms cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+          background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-      let navShiftX = 0;
-      const measureNavShift = () => {
-        const main = document.querySelector(".main-column");
-        if (!main) return;
+      body[data-sidebar-scrolled="true"] .home-sidebar {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-color: transparent;
+        border-bottom-color: transparent;
+      }
 
-        const navRect = navbar.getBoundingClientRect();
-        const mainRect = main.getBoundingClientRect();
+      body[data-sidebar-scrolled="true"] .home-sidebar::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 2rem;
+        width: 1px;
+        background: rgb(var(--border-color));
+        opacity: 1;
+        transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-        const navCenter = navRect.left + navRect.width / 2;
-        const mainCenter = mainRect.left + mainRect.width / 2;
+      .home-sidebar::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 2rem;
+        width: 1px;
+        background: rgb(var(--border-color));
+        opacity: 0;
+        transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
 
-        navShiftX = Math.round(mainCenter - navCenter);
-      };
+    <script is:inline>
+      // ADDED: Sync Underlay Height to Hero Section
+      (() => {
+        const hero = document.getElementById("hero");
+        const underlay = document.getElementById("hero-underlay");
 
-      const checkNav = () => {
-        const navRect = navbar.getBoundingClientRect();
-        const heroRect = heroHeading.getBoundingClientRect();
-        const distance = heroRect.top - navRect.bottom;
+        // If either element is missing, do nothing (avoid runtime errors)
+        if (!hero || !underlay) return;
 
-        const scrolled = distance < 20;
-        document.body.setAttribute(
-          "data-nav-scrolled",
-          scrolled ? "true" : "false",
-        );
+        const updateUnderlay = () => {
+          // Calculate bottom of hero relative to the document
+          const rect = hero.getBoundingClientRect();
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const absoluteBottom = rect.bottom + scrollTop;
 
-        // Set CSS variable instead of inline style
-        document.documentElement.style.setProperty(
-          "--nav-shift-x",
-          scrolled ? `${navShiftX}px` : "0px",
-        );
-      };
+          underlay.style.height = `${absoluteBottom}px`;
+        };
 
-      window.addEventListener("scroll", checkNav, { passive: true });
-      window.addEventListener("resize", () => {
+        // Update on load and resize
+        window.addEventListener("resize", updateUnderlay);
+        window.addEventListener("load", updateUnderlay);
+
+        // Guard ResizeObserver in environments where it's unavailable or may throw
+        if (typeof ResizeObserver !== "undefined") {
+          try {
+            new ResizeObserver(updateUnderlay).observe(document.body);
+          } catch (e) {
+            // ignore - observation is non-critical
+          }
+        }
+
+        updateUnderlay();
+      })();
+
+      // Navbar: distance-based trigger (no hysteresis)
+      (() => {
+        const heroHeading = document.querySelector("#hero h1");
+        const navbar = document.querySelector(".home-island");
+        if (!heroHeading || !navbar) return;
+
+        let navShiftX = 0;
+        const measureNavShift = () => {
+          const main = document.querySelector(".main-column");
+          if (!main) return;
+
+          const navRect = navbar.getBoundingClientRect();
+          const mainRect = main.getBoundingClientRect();
+
+          const navCenter = navRect.left + navRect.width / 2;
+          const mainCenter = mainRect.left + mainRect.width / 2;
+
+          navShiftX = Math.round(mainCenter - navCenter);
+        };
+
+        const checkNav = () => {
+          const navRect = navbar.getBoundingClientRect();
+          const heroRect = heroHeading.getBoundingClientRect();
+          const distance = heroRect.top - navRect.bottom;
+
+          const scrolled = distance < 20;
+          document.body.setAttribute(
+            "data-nav-scrolled",
+            scrolled ? "true" : "false",
+          );
+
+          // Set CSS variable instead of inline style
+          document.documentElement.style.setProperty(
+            "--nav-shift-x",
+            scrolled ? `${navShiftX}px` : "0px",
+          );
+        };
+
+        window.addEventListener("scroll", checkNav, { passive: true });
+        window.addEventListener("resize", () => {
+          measureNavShift();
+          checkNav();
+        });
         measureNavShift();
         checkNav();
-      });
-      measureNavShift();
-      checkNav();
-    })();
+      })();
 
-    // Sidebar: top-edge trigger (no hysteresis)
-    (() => {
-      const checkSidebar = () => {
-        const sidebar = document.querySelector(".home-sidebar");
-        if (!sidebar) return;
+      // Sidebar: top-edge trigger (no hysteresis)
+      (() => {
+        const checkSidebar = () => {
+          const sidebar = document.querySelector(".home-sidebar");
+          if (!sidebar) return;
 
-        const sidebarRect = sidebar.getBoundingClientRect();
-        document.body.setAttribute(
-          "data-sidebar-scrolled",
-          sidebarRect.top <= 10 ? "true" : "false",
-        );
-      };
+          const sidebarRect = sidebar.getBoundingClientRect();
+          document.body.setAttribute(
+            "data-sidebar-scrolled",
+            sidebarRect.top <= 10 ? "true" : "false",
+          );
+        };
 
-      window.addEventListener("scroll", checkSidebar, { passive: true });
-      window.addEventListener("resize", checkSidebar);
-      checkSidebar();
-    })();
-  </script>
+        window.addEventListener("scroll", checkSidebar, { passive: true });
+        window.addEventListener("resize", checkSidebar);
+        checkSidebar();
+      })();
+    </script>
+  </div>
 </BaseLayout>

@@ -76,12 +76,6 @@
 /* -------------------------------------------------------------------------- */
 
 /* Home hero background image */
-.home-bg {
-    /* Ensure hero_banner.jpg exists in your /public folder */
-    background:
-        linear-gradient(rgb(6 9 10 / 0.82), rgb(6 9 10 / 0.92)),
-        url('/hero_banner.jpg') center/cover no-repeat;
-}
 
 .home-bg main {
     background: none !important;
@@ -202,10 +196,10 @@
 }
 
 .lg-island-link--highlight {
-    color: rgb(100, 37, 218);
+    color: rgb(100, 37, 218) !important;
     opacity: 1 !important;
 }
 
 .dark .lg-island-link--highlight {
-    color: rgb(166, 123, 245);
+    color: rgb(166, 123, 245) !important;
 }
