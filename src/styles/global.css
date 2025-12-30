@@ -7,8 +7,33 @@
 /* -------------------------------------------------------------------------- */
 @layer base {
     :root {
-        /* Core Palette (Space separated for modern RGB syntax) */
-        --space-indigo-bright: 80 120 255;
+        /* Light Mode Core Palette */
+        --cream: 245, 241, 233;
+        --dusk-blue: 66 88 116;
+        /* #425874 */
+        --platinum: 240 243 246;
+        /* #F0F3F6 */
+        --golden-bronze: 199 162 48;
+        /* #C7A230 */
+        --moss-green: 96 182 85;
+        /* #60B655 */
+        --toffee-brown: 145 101 65;
+        /* #916541 */
+
+        --vanilla-custard: 247 235 213;
+        /* #ECD596 */
+        --dust-grey: 220 217 212;
+        /* #DCD9D4 */
+        --terracotta-clay: 172 89 83;
+        /* #AC5953 */
+        --taupe: 75 65 55;
+        --dark-brown: 33 28 23;
+        /* #4B4137 */
+        --pink-mist: 217 162 181;
+        /* #D9A2B5 */
+
+        /* Dark Mode Core Palette (Space separated for modern RGB syntax) */
+        --space-indigo-bright: 166 123 245;
         /* #5078FF */
         --jet-black: 33 51 62;
         /* #21333E */
@@ -21,12 +46,13 @@
         --jet-black-2: 30 46 55;
         /* #1E2E37 */
 
+
         /* Theming Variables */
-        --bg-primary: 255 255 255;
-        --bg-secondary: 248 250 252;
-        --text-primary: 15 23 42;
-        --text-secondary: 71 85 105;
-        --border-color: 226 232 240;
+        --bg-primary: var(--cream);
+        --bg-secondary: var(--vanilla-custard);
+        --text-primary: var(--dark-brown);
+        --text-secondary: var(--taupe);
+        --border-color: var(--dust-grey);
         /* Home nav top offsets (used to keep spacing consistent across pages) */
         --home-island-top: 1rem;
         --home-island-scrolled-top: 1rem;
@@ -39,6 +65,10 @@
         --lg-mx: 0px;
         --lg-my: 0px;
         --lg-tilt: 0deg;
+
+        /* #f0e5c7 */
+        --hero-light-image: url("/hero_banner_light.jpg");
+        --hero-light-gradient-cut: 70%;
     }
 
     .dark {
@@ -211,12 +241,12 @@
 }
 
 .lg-island-link--highlight {
-    color: rgb(100, 37, 218) !important;
+    color: rgb(var(--toffee-brown)) !important;
     opacity: 1 !important;
 }
 
 .dark .lg-island-link--highlight {
-    color: rgb(166, 123, 245) !important;
+    color: rgb(var(--space-indigo-bright)) !important;
 }
 
 /* FORCE HIDE: Add this to the bottom of global.css */
