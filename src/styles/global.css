@@ -184,6 +184,14 @@
     border: none;
 }
 
+/* When the document is unloading/hidden (navigation), hide the selector to avoid
+   painting a stale position during cross-page transitions. */
+.lg-glass-selector.lg-unloading {
+    opacity: 0 !important;
+    transition: opacity 120ms ease;
+    pointer-events: none;
+}
+
 /* Nav Links */
 .lg-island-link {
     position: relative;
@@ -209,4 +217,11 @@
 
 .dark .lg-island-link--highlight {
     color: rgb(166, 123, 245) !important;
+}
+
+/* FORCE HIDE: Add this to the bottom of global.css */
+.lg-nuke {
+    opacity: 0 !important;
+    transition: none !important;
+    visibility: hidden !important;
 }
