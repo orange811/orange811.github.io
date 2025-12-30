@@ -27,12 +27,25 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           <!-- Mobile: stacked about card -->
           <div class="lg:hidden mb-6">
             <aside
-              class="rounded-2xl border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))] p-6"
+              class="rounded-2xl border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))] p-6 relative z-10"
             >
-              <h2 class="text-2xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
-              <p class="text-[rgb(var(--text-secondary))]">
-                About me – identity blurb. Content coming soon.
-              </p>
+              <div class="flex items-center gap-4">
+                <img
+                  src="/piyushPhoto.jpg"
+                  alt="Piyush Jain"
+                  class="w-28 h-28 rounded-full object-cover"
+                />
+                <div class="flex-1 text-left">
+                  <h2 class="text-2xl font-bold mb-1">Hi, I'm Piyush Jain</h2>
+                  <p class="text-[rgb(var(--text-secondary))]">
+                    Bio placeholder — edit me later.
+                  </p>
+                  <p class="text-sm text-[rgb(var(--text-secondary))] mt-2">
+                    Graduated from Pune Institute of Computer Technology (PICT)
+                    in 2025.
+                  </p>
+                </div>
+              </div>
             </aside>
           </div>
 
@@ -41,23 +54,27 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
             class="hidden lg:block lg:sticky lg:top-0 home-sidebar-container"
           >
             <aside
-              class="home-sidebar border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))]"
+              class="home-sidebar border border-[rgb(var(--border-color))] bg-[rgb(var(--bg-primary))] relative z-10"
             >
-              <div class="p-6">
-                <h2 class="text-3xl font-bold mb-3">Hi, I'm Piyush Jain</h2>
+              <div class="p-6 flex flex-col items-center text-center">
+                <img
+                  src="/piyushPhoto.jpg"
+                  alt="Piyush Jain"
+                  class="w-40 h-40 rounded-full object-cover mb-4 mx-auto"
+                />
+                <h2 class="text-3xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
                 <p class="text-[rgb(var(--text-secondary))] mb-4">
-                  I work across research, engineering, and creative practice.
+                  Bio placeholder — edit me later.
+                </p>
+                <p class="text-sm text-[rgb(var(--text-secondary))] mb-4">
+                  Graduated from Pune Institute of Computer Technology (PICT) in
+                  2025.
                 </p>
                 <div class="flex gap-3">
                   <a
                     href="/publications-research-projects"
                     class="px-4 py-2 rounded-md bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
                     >View Work</a
-                  >
-                  <a
-                    href="/resume"
-                    class="px-4 py-2 rounded-md border border-[rgb(var(--border-color))] hover:bg-slate-50 dark:hover:bg-slate-800"
-                    >Resume</a
                   >
                 </div>
               </div>
@@ -90,11 +107,6 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                   class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
                   >Explore Work</a
                 >
-                <a
-                  href="/resume"
-                  class="px-6 py-3 border border-[rgb(var(--border-color))] rounded-md font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-                  >View Resume</a
-                >
               </div>
             </div>
 
@@ -125,20 +137,9 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           </section>
 
           <!-- Resume-like scroll sections -->
-          <section class="py-10">
-            <h2 class="text-2xl font-bold mb-4">Academics</h2>
-            <p class="text-[rgb(var(--text-secondary))] mb-3">
-              Content coming soon.
-            </p>
-            <a href="/academics" class="text-sm font-medium underline"
-              >See more</a
-            >
-          </section>
 
           <section class="py-10 border-t border-[rgb(var(--border-color))]">
-            <h2 class="text-2xl font-bold mb-4">
-              Publications, Research & Projects
-            </h2>
+            <h2 class="text-2xl font-bold mb-4">Publications & Projects</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
               {
                 (publications?.slice(0, 3) || []).map((p) => (
@@ -212,14 +213,6 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
             <a href="/experience" class="text-sm font-medium underline"
               >See more</a
             >
-          </section>
-
-          <section class="py-10 border-t border-[rgb(var(--border-color))]">
-            <h2 class="text-2xl font-bold mb-4">Resume</h2>
-            <p class="text-[rgb(var(--text-secondary))] mb-3">
-              Content coming soon.
-            </p>
-            <a href="/resume" class="text-sm font-medium underline">See more</a>
           </section>
         </div>
       </div>

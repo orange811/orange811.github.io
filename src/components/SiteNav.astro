@@ -3,14 +3,12 @@ const currentPath = Astro.url.pathname;
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/academics", label: "Academics" },
   {
     href: "/publications-research-projects",
-    label: "Publications, Research & Projects",
+    label: "Publications & Projects",
   },
   { href: "/art", label: "Art" },
   { href: "/experience", label: "Experience" },
-  { href: "/resume", label: "Resume" },
 ];
 
 const isActive = (href: string) => {

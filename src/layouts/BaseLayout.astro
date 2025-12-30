@@ -30,8 +30,8 @@ const currentPath = Astro.url.pathname;
         ) {
           return localStorage.getItem("theme");
         }
-        // Default to light mode
-        return "light";
+        // Default to dark mode
+        return "dark";
       })();
 
       if (theme === "dark") {
