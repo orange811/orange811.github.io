@@ -27,6 +27,13 @@
         --text-primary: 15 23 42;
         --text-secondary: 71 85 105;
         --border-color: 226 232 240;
+        /* Home nav top offsets (used to keep spacing consistent across pages) */
+        --home-island-top: 1rem;
+        --home-island-scrolled-top: 1rem;
+        /* Spacing tokens */
+        --card-padding: 1.5rem;
+        --lg-link-pad-y: 0.35rem;
+        --lg-link-pad-x: 0.7rem;
 
         /* Liquid Glass Variables */
         --lg-mx: 0px;
@@ -180,7 +187,7 @@
 /* Nav Links */
 .lg-island-link {
     position: relative;
-    padding: 0.35rem 0.7rem;
+    padding: var(--lg-link-pad-y) var(--lg-link-pad-x);
     border-radius: 999px;
     font-weight: 600;
     font-size: 0.8125rem;
