@@ -1,15 +1,6 @@
 ---
 const currentPath = Astro.url.pathname;
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  {
-    href: "/publications-research-projects",
-    label: "Publications & Projects",
-  },
-  { href: "/art", label: "Art" },
-  { href: "/experience", label: "Experience" },
-];
+import { navLinks } from "../data/navLinks";
 
 const isActive = (href: string) => {
   if (href === "/") {

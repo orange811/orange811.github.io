@@ -264,7 +264,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
 
       /* Island positioning */
       .home-island {
-        top: 1rem;
+        top: var(--home-island-top);
         justify-content: center;
         position: sticky;
         transition:
@@ -272,7 +272,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
       }
       body[data-nav-scrolled="true"] .home-island {
-        top: 0.75rem;
+        top: var(--home-island-scrolled-top);
         transform: translateX(var(--nav-shift-x, 0px));
       }
 
@@ -289,7 +289,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
         min-height: 100vh;
-        padding: 1.5rem;
+        padding: var(--card-padding);
         position: relative;
         transition:
           border-radius 300ms cubic-bezier(0.4, 0, 0.2, 1),
