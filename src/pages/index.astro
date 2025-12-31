@@ -37,10 +37,10 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                 />
                 <div class="flex-1 text-left">
                   <h2 class="text-2xl font-bold mb-1">Hi, I'm Piyush Jain</h2>
-                  <p class="text-[rgb(var(--text-secondary))]">
+                  <p class="text-muted">
                     Bio placeholder — edit me later.
                   </p>
-                  <p class="text-sm text-[rgb(var(--text-secondary))] mt-2">
+                  <p class="text-sm text-muted mt-2">
                     Graduated from Pune Institute of Computer Technology (PICT)
                     in 2025.
                   </p>
@@ -63,17 +63,17 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                   class="w-40 h-40 rounded-full object-cover mb-4 mx-auto"
                 />
                 <h2 class="text-3xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
-                <p class="text-[rgb(var(--text-secondary))] mb-4">
+                <p class="text-muted mb-4">
                   Bio placeholder — edit me later.
                 </p>
-                <p class="text-sm text-[rgb(var(--text-secondary))] mb-4">
+                <p class="text-sm text-muted mb-4">
                   Graduated from Pune Institute of Computer Technology (PICT) in
                   2025.
                 </p>
                 <div class="flex gap-3">
                   <a
                     href="/publications-research-projects"
-                    class="px-4 py-2 rounded-md bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
+                    class="px-4 py-2 rounded-md bg-surface text-text dark:text-on-brand hover:bg-accent dark:hover:bg-accent"
                     >View Work</a
                   >
                 </div>
@@ -91,10 +91,10 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           >
             <div class="max-w-3xl">
               <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                Hi, I'm <span class="dark:text-slate-300">Piyush Jain</span>
+                Hi, I'm <span class="dark:text-muted">Piyush Jain</span>
               </h1>
               <p
-                class="text-lg md:text-xl text-[rgb(var(--text-secondary))] mb-8"
+                class="text-lg md:text-xl text-muted mb-8"
               >
                 Featured work and directions below. Explore publications,
                 research, and projects.
@@ -102,7 +102,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
               <div class="flex flex-wrap gap-4 mb-10">
                 <a
                   href="/publications-research-projects"
-                  class="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-md font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+                  class="px-6 py-3 bg-surface dark:bg-surface text-text dark:text-on-brand rounded-md font-medium hover:bg-accent dark:hover:bg-accent transition-colors"
                   >Explore Work</a
                 >
               </div>
@@ -117,7 +117,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                         <h3 class="text-lg font-semibold mb-1">
                           {item.data?.title ?? "Featured"}
                         </h3>
-                        <p class="text-sm text-[rgb(var(--text-secondary))] line-clamp-3">
+                        <p class="text-sm text-muted line-clamp-3">
                           {item.data?.description ?? "Featured item"}
                         </p>
                       </div>
@@ -125,7 +125,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                   : [1, 2, 3].map((n) => (
                       <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
                         <h3 class="text-lg font-semibold mb-1">Featured</h3>
-                        <p class="text-sm text-[rgb(var(--text-secondary))]">
+                        <p class="text-sm text-muted">
                           Coming soon
                         </p>
                       </div>
@@ -145,7 +145,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                     <div class="text-sm font-semibold">
                       {p.data?.title ?? "Publication"}
                     </div>
-                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                    <div class="text-xs text-muted">
                       {p.data?.venue ?? ""}
                     </div>
                   </div>
@@ -157,7 +157,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                     <div class="text-sm font-semibold">
                       {prj.data?.title ?? "Project"}
                     </div>
-                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                    <div class="text-xs text-muted">
                       {prj.data?.description ?? ""}
                     </div>
                   </div>
@@ -186,7 +186,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                     <div class="text-sm font-semibold">
                       {a.data?.title ?? "Art"}
                     </div>
-                    <div class="text-xs text-[rgb(var(--text-secondary))]">
+                    <div class="text-xs text-muted">
                       {a.data?.medium ?? ""}
                     </div>
                   </div>
@@ -205,7 +205,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
 
           <section class="py-10 border-t border-[rgb(var(--border-color))]">
             <h2 class="text-2xl font-bold mb-4">Experience</h2>
-            <p class="text-[rgb(var(--text-secondary))] mb-3">
+            <p class="text-muted mb-3">
               Content coming soon.
             </p>
             <a href="/experience" class="text-sm font-medium underline"

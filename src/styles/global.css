@@ -69,6 +69,18 @@
         /* #f0e5c7 */
         --hero-light-image: url("/hero_banner_light.jpg");
         --hero-light-gradient-cut: 70%;
+        /* Semantic token aliases (map these to the core palette above) */
+        --brand: var(--space-indigo);
+        --cta: var(--space-indigo-bright);
+        /* Accent token (semantic alias for CTAs) */
+        --accent: var(--cta);
+        --surface: var(--bg-secondary);
+        --bg: var(--bg-primary);
+        --text: var(--text-primary);
+        --muted: var(--text-secondary);
+        --border: var(--border-color);
+        /* text color when placed on brand/cta background */
+        --on-brand: 226 232 240;
     }
 
     .dark {
@@ -104,7 +116,7 @@
     }
 
     a:hover {
-        @apply text-slate-600 dark:text-slate-300;
+        @apply text-muted dark:text-muted;
     }
 }
 

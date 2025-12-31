@@ -19,11 +19,11 @@ const sortedProjects = projects.sort((a, b) => {
   <div class="max-w-4xl mx-auto">
     <h1 class="text-4xl md:text-5xl font-bold mb-8">Projects</h1>
 
-    <p class="text-lg text-[rgb(var(--text-secondary))] mb-6">
+    <p class="text-lg text-muted mb-6">
       Projects are consolidated under the Publications, Research, and Projects
       page.
     </p>
-    <p class="text-sm text-[rgb(var(--text-secondary))] mb-12">
+    <p class="text-sm text-muted mb-12">
       See <a href="/publications-research-projects" class="hover:underline"
         >Publications &amp; Projects</a
       > for the complete list.
@@ -39,7 +39,7 @@ const sortedProjects = projects.sort((a, b) => {
                   {project.data.title}
                 </h2>
                 {project.data.date && (
-                  <time class="text-sm text-[rgb(var(--text-secondary))]">
+                  <time class="text-sm text-muted">
                     {new Date(project.data.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
@@ -48,14 +48,14 @@ const sortedProjects = projects.sort((a, b) => {
                 )}
               </div>
 
-              <p class="text-[rgb(var(--text-secondary))] mb-4">
+              <p class="text-muted mb-4">
                 {project.data.description}
               </p>
 
               {project.data.tags && project.data.tags.length > 0 && (
                 <div class="flex flex-wrap gap-2 mb-4">
                   {project.data.tags.map((tag) => (
-                    <span class="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded-full">
+                    <span class="px-3 py-1 text-xs font-medium bg-surface dark:bg-surface rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -88,7 +88,7 @@ const sortedProjects = projects.sort((a, b) => {
           ))}
         </div>
       ) : (
-        <p class="text-[rgb(var(--text-secondary))]">Projects coming soon.</p>
+        <p class="text-muted">Projects coming soon.</p>
       )
     }
   </div>

@@ -19,7 +19,7 @@ const sortedArt = artworks.sort((a, b) => {
   <div class="max-w-6xl mx-auto">
     <h1 class="text-4xl md:text-5xl font-bold mb-8">Art</h1>
 
-    <p class="text-lg text-[rgb(var(--text-secondary))] mb-12">
+    <p class="text-lg text-muted mb-12">
       A curated collection of my creative works and artistic endeavors.
     </p>
 
@@ -29,7 +29,7 @@ const sortedArt = artworks.sort((a, b) => {
           {sortedArt.map((art) => (
             <article class="border border-[rgb(var(--border-color))] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
               {art.data.image && (
-                <div class="aspect-square bg-slate-100 dark:bg-slate-800">
+                <div class="aspect-square bg-surface dark:bg-surface">
                   <img
                     src={art.data.image}
                     alt={art.data.title}
@@ -40,12 +40,12 @@ const sortedArt = artworks.sort((a, b) => {
               <div class="p-4">
                 <h2 class="text-xl font-bold mb-2">{art.data.title}</h2>
                 {art.data.medium && (
-                  <p class="text-sm text-[rgb(var(--text-secondary))] mb-2">
+                  <p class="text-sm text-muted mb-2">
                     {art.data.medium}
                   </p>
                 )}
                 {art.data.date && (
-                  <p class="text-xs text-[rgb(var(--text-secondary))] mb-3">
+                  <p class="text-xs text-muted mb-3">
                     {new Date(art.data.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -55,7 +55,7 @@ const sortedArt = artworks.sort((a, b) => {
                 {art.data.tags && art.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-2 mb-3">
                     {art.data.tags.map((tag) => (
-                      <span class="px-2 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 rounded">
+                      <span class="px-2 py-1 text-xs font-medium bg-surface dark:bg-surface rounded">
                         {tag}
                       </span>
                     ))}
@@ -76,7 +76,7 @@ const sortedArt = artworks.sort((a, b) => {
           ))}
         </div>
       ) : (
-        <p class="text-[rgb(var(--text-secondary))]">
+        <p class="text-muted">
           Art collection coming soon.
         </p>
       )
@@ -85,7 +85,7 @@ const sortedArt = artworks.sort((a, b) => {
     <!-- External Links Section -->
     <section class="mt-16 pt-12 border-t border-[rgb(var(--border-color))]">
       <h2 class="text-2xl md:text-3xl font-bold mb-6">Find More</h2>
-      <p class="text-[rgb(var(--text-secondary))]">Content coming soon.</p>
+      <p class="text-muted">Content coming soon.</p>
     </section>
   </div>
 </BaseLayout>
