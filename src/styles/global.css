@@ -8,7 +8,7 @@
 @layer base {
     :root {
         /* Light Mode Core Palette */
-        --cream: 245, 241, 233;
+        --cream: 250, 250, 245;
         --dusk-blue: 66 88 116;
         /* #425874 */
         --platinum: 240 243 246;
@@ -20,7 +20,7 @@
         --toffee-brown: 145 101 65;
         /* #916541 */
 
-        --vanilla-custard: 247 235 213;
+        --vanilla-custard: 247 240 230;
         /* #ECD596 */
         --dust-grey: 220 217 212;
         /* #DCD9D4 */
@@ -52,7 +52,7 @@
         --bg-secondary: var(--vanilla-custard);
         --text-primary: var(--dark-brown);
         --text-secondary: var(--taupe);
-        --border-color: var(--dust-grey);
+        --border-color: 215 214 210;
         /* Home nav top offsets (used to keep spacing consistent across pages) */
         --home-island-top: 1rem;
         --home-island-scrolled-top: 1rem;
