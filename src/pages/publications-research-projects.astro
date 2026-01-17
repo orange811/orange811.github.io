@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import LiquidGlassNav from "../components/LiquidGlassNav.astro";
+import PublicationCard from "../components/cards/PublicationCard.astro";
+import ProjectCard from "../components/cards/ProjectCard.astro";
 
 const publications = await getCollection("publications");
 const sortedPublications = publications.sort((a, b) => {
@@ -61,39 +63,11 @@ const researchItems = [
                 sortedPublications.length > 0 ? (
                     <div class="space-y-6">
                         {sortedPublications.map((pub) => (
-                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
-                                <h3 class="text-xl font-bold mb-2">
-                                    {pub.data.title}
-                                </h3>
-                                {pub.data.authors && (
-                                    <p class="text-sm text-muted mb-2">
-                                        {pub.data.authors.join(", ")}
-                                    </p>
-                                )}
-                                {pub.data.venue && (
-                                    <p class="text-sm text-muted mb-2">
-                                        {pub.data.venue}
-                                        {pub.data.date &&
-                                            ` • ${new Date(pub.data.date).getFullYear()}`}
-                                    </p>
-                                )}
-                                {pub.data.link && (
-                                    <a
-                                        href={pub.data.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="inline-block mt-2 text-sm font-medium hover:underline"
-                                    >
-                                        View Publication →
-                                    </a>
-                                )}
-                            </article>
+                            <PublicationCard entry={pub} />
                         ))}
                     </div>
                 ) : (
-                    <p class="text-muted">
-                        Publications coming soon.
-                    </p>
+                    <p class="text-muted">Publications coming soon.</p>
                 )
             }
         </section>
@@ -116,9 +90,7 @@ const researchItems = [
                                         {item.period}
                                     </time>
                                 </div>
-                                <p class="text-muted mb-2">
-                                    {item.org}
-                                </p>
+                                <p class="text-muted mb-2">{item.org}</p>
                                 <ul class="list-disc list-inside space-y-2 text-muted">
                                     {item.bullets.map((b) => (
                                         <li>{b}</li>
@@ -138,9 +110,7 @@ const researchItems = [
                         ))}
                     </div>
                 ) : (
-                    <p class="text-muted">
-                        Content coming soon.
-                    </p>
+                    <p class="text-muted">Content coming soon.</p>
                 )
             }
         </section>
@@ -154,67 +124,11 @@ const researchItems = [
                 sortedProjects.length > 0 ? (
                     <div class="space-y-6">
                         {sortedProjects.map((project) => (
-                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg hover:shadow-md transition-shadow">
-                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-                                    <h3 class="text-2xl font-bold mb-2 sm:mb-0">
-                                        {project.data.title}
-                                    </h3>
-                                    {project.data.date && (
-                                        <time class="text-sm text-muted">
-                                            {new Date(
-                                                project.data.date,
-                                            ).toLocaleDateString("en-US", {
-                                                year: "numeric",
-                                                month: "short",
-                                            })}
-                                        </time>
-                                    )}
-                                </div>
-
-                                <p class="text-muted mb-4">
-                                    {project.data.description}
-                                </p>
-
-                                {project.data.tags &&
-                                    project.data.tags.length > 0 && (
-                                        <div class="flex flex-wrap gap-2 mb-4">
-                                            {project.data.tags.map((tag) => (
-                                                <span class="px-3 py-1 text-xs font-medium bg-surface dark:bg-surface rounded-full">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                <div class="flex gap-4">
-                                    {project.data.repo && (
-                                        <a
-                                            href={project.data.repo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="text-sm font-medium hover:underline"
-                                        >
-                                            View Code →
-                                        </a>
-                                    )}
-                                    {project.data.link && (
-                                        <a
-                                            href={project.data.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="text-sm font-medium hover:underline"
-                                        >
-                                            Video Demo →
-                                        </a>
-                                    )}
-                                </div>
-                            </article>
+                            <ProjectCard entry={project} />
                         ))}
                     </div>
                 ) : (
-                    <p class="text-muted">
-                        Projects coming soon.
-                    </p>
+                    <p class="text-muted">Projects coming soon.</p>
                 )
             }
         </section>

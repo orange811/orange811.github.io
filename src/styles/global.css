@@ -267,3 +267,66 @@
     transition: none !important;
     visibility: hidden !important;
 }
+
+/* Card base: unify border color and mobile/tap affordance */
+.card-base {
+    border: 1px solid rgb(var(--border-color));
+    transition: box-shadow 160ms ease, transform 120ms ease;
+}
+
+.card-base:active {
+    transform: translateY(1px);
+}
+
+.card-base:focus-visible {
+    outline: 2px solid rgb(var(--space-indigo-bright));
+    outline-offset: 2px;
+}
+
+.dark .card-base {
+    /* Use the existing border color token in dark mode with reduced opacity */
+    border-color: rgb(var(--border-color));
+}
+
+/* Ensure visible drop-shadows in both light and dark themes */
+.card-base {
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+}
+
+.card-base:hover {
+    box-shadow: 0 8px 24px rgb(2 6 23 / 0.16);
+    transform: translateY(-2px);
+}
+
+.dark .card-base {
+    /* Light rim shadow for dark mode so cards pop without a heavy dark shadow */
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.04);
+}
+
+.dark .card-base:hover {
+    /* Subtle white glow plus small dark core for depth */
+    box-shadow:
+        0 8px 24px rgba(var(--space-indigo-bright) / 0.2);
+    /* 0 2px 6px rgba(0, 0, 0, 0.28); */
+    transform: translateY(-2px);
+}
+
+/* Default (base) nav state: show simple nav for all devices, hide floating nav */
+.site-nav {
+    display: block;
+}
+
+.pointer-enabled {
+    display: none;
+}
+
+/* For pointer-capable devices with hover, switch to floating liquid-glass nav */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .pointer-enabled {
+        display: flex;
+    }
+
+    .site-nav {
+        display: none;
+    }
+}

@@ -1,0 +1,56 @@
+---
+const { entry, action = null, variant = "default" } = Astro.props;
+
+// Build a safe action representation
+let actionDetail = null;
+let actionJS = "";
+
+if (action && action.type === "modal") {
+    actionDetail = {
+        collection: entry.collection ?? "projects",
+        slug: entry.slug,
+    };
+    // JSON.stringify here is safe because actionDetail is plain data
+    actionJS = `window.dispatchEvent(new CustomEvent('open-modal', { detail: ${JSON.stringify(actionDetail)} }));`;
+} else if (action && action.type === "link" && action.href) {
+    actionDetail = { href: action.href };
+    actionJS = `window.location.href = ${JSON.stringify(action.href)};`;
+}
+
+let onKeyDownJS = "";
+if (actionJS) {
+    onKeyDownJS = `if (event.key === 'Enter' || event.key === ' ') { ${actionJS} }`;
+}
+---
+
+<article
+    role={actionDetail ? "button" : undefined}
+    tabindex={actionDetail ? 0 : undefined}
+    onclick={actionJS || undefined}
+    onkeydown={onKeyDownJS || undefined}
+    class={`card-base rounded-xl p-4 bg-[rgb(var(--bg-secondary))] hover:shadow-md transition-shadow`}
+    style={`cursor: ${actionDetail ? "pointer" : "auto"}`}
+>
+    {
+        entry?.data?.thumb ? (
+            <div class="mb-3">
+                <img
+                    src={entry.data.thumb}
+                    alt={`${entry.data.title} thumbnail`}
+                    class="w-full h-40 object-cover rounded-md"
+                />
+            </div>
+        ) : null
+    }
+
+    <h3 class="text-lg font-semibold mb-1">{entry.data?.title}</h3>
+    <p class="text-sm text-muted line-clamp-3">
+        {entry.data?.excerpt ?? entry.data?.description ?? ""}
+    </p>
+
+    <div class="mt-3 flex items-center justify-between">
+        <div class="text-xs text-muted">
+            {(entry.data?.tags || []).slice(0, 3).join(", ")}
+        </div>
+    </div>
+</article>

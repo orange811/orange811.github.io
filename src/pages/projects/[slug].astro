@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const { slug } = Astro.params;
+const projects = await getCollection("projects").catch(() => []);
+const entry = projects.find((e) => e.slug === slug || e.id === slug);
+
+let rendered = null;
+if (entry) {
+    rendered = await entry.render();
+}
+
+export async function getStaticPaths() {
+    const all = await getCollection("projects");
+    return all.map((p) => ({ params: { slug: p.slug ?? p.id } }));
+}
+---
+
+<BaseLayout
+    title={entry ? entry.data.title : "Project not found"}
+    description={entry?.data?.description ?? ""}
+>
+    {
+        entry ? (
+            <article class="prose lg:prose-xl mx-auto">
+                {(entry.data as any)?.hero ? (
+                    <div class="mb-6">
+                        <img
+                            src={(entry.data as any).hero}
+                            alt={`${entry.data.title} hero`}
+                            class="w-full rounded-lg object-cover"
+                        />
+                    </div>
+                ) : null}
+
+                <header class="mb-4">
+                    <h1 class="text-3xl font-bold mb-2">{entry.data.title}</h1>
+                    {entry.data?.date ? (
+                        <div class="text-sm text-muted">
+                            {new Date(entry.data.date).toLocaleDateString()}
+                        </div>
+                    ) : null}
+                    {entry.data?.tags ? (
+                        <div class="text-sm text-muted mt-2">
+                            {entry.data.tags.join(", ")}
+                        </div>
+                    ) : null}
+                </header>
+
+                {rendered ? <rendered.Content /> : <div>Loading...</div>}
+
+                <footer class="mt-8">
+                    <div class="flex gap-3">
+                        {entry.data?.repo ? (
+                            <a
+                                class="px-4 py-2 rounded-md bg-surface hover:bg-accent"
+                                href={entry.data.repo}
+                                target="_blank"
+                            >
+                                Repository
+                            </a>
+                        ) : null}
+                        {entry.data?.link ? (
+                            <a
+                                class="px-4 py-2 rounded-md bg-surface hover:bg-accent"
+                                href={entry.data.link}
+                                target="_blank"
+                            >
+                                External Link
+                            </a>
+                        ) : null}
+                    </div>
+                </footer>
+            </article>
+        ) : (
+            <div class="text-center py-12">
+                <h2 class="text-2xl font-semibold">Project not found</h2>
+                <p class="text-muted mt-2">
+                    This project does not exist or has been removed.
+                </p>
+            </div>
+        )
+    }
+</BaseLayout>

@@ -44,7 +44,7 @@ const currentPath = Astro.url.pathname;
   <body
     class={`min-h-screen flex flex-col${currentPath === "/" ? " home-bg" : ""}`}
   >
-    {currentPath === "/" ? <SiteNav class="md:hidden" /> : <SiteNav />}
+    <SiteNav />
     <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <slot />
     </main>

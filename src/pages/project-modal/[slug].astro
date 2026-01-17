@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+const { slug } = Astro.params;
+const projects = await getCollection("projects").catch(() => []);
+const entry = projects.find((e) => e.slug === slug || e.id === slug);
+
+if (!entry) {
+    // Render a simple 404 fragment for missing entries
+}
+
+const rendered = entry ? await entry.render() : null;
+
+export async function getStaticPaths() {
+    const all = await getCollection("projects");
+    return all.map((p) => ({ params: { slug: p.slug ?? p.id } }));
+}
+---
+
+<div class="project-modal-fragment">
+    <header class="mb-4">
+        <h2 class="text-2xl font-bold">
+            {entry ? entry.data.title : "Not found"}
+        </h2>
+        {
+            entry?.data?.date ? (
+                <div class="text-xs text-muted">
+                    {new Date(entry.data.date).toLocaleDateString()}
+                </div>
+            ) : null
+        }
+    </header>
+
+    {
+        entry && rendered ? (
+            <div class="prose max-w-none">
+                <rendered.Content />
+            </div>
+        ) : (
+            <div class="p-6">Not found</div>
+        )
+    }
+
+    <footer class="mt-6 text-sm text-muted">
+        {
+            entry?.data?.repo ? (
+                <div>
+                    <a class="underline" href={entry.data.repo} target="_blank">
+                        Repository
+                    </a>
+                </div>
+            ) : null
+        }
+        {
+            entry?.data?.link ? (
+                <div>
+                    <a class="underline" href={entry.data.link} target="_blank">
+                        External Link
+                    </a>
+                </div>
+            ) : null
+        }
+    </footer>
+</div>

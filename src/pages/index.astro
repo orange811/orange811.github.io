@@ -2,6 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import LiquidGlassNav from "../components/LiquidGlassNav.astro";
+import ProjectCard from "../components/cards/ProjectCard.astro";
+import PublicationCard from "../components/cards/PublicationCard.astro";
+import ArtworkCard from "../components/cards/ArtworkCard.astro";
+import ProjectModal from "../components/ProjectModal.astro";
 
 const projects = await getCollection("projects").catch(() => []);
 const publications = await getCollection("publications").catch(() => []);
@@ -37,9 +41,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                 />
                 <div class="flex-1 text-left">
                   <h2 class="text-2xl font-bold mb-1">Hi, I'm Piyush Jain</h2>
-                  <p class="text-muted">
-                    Bio placeholder — edit me later.
-                  </p>
+                  <p class="text-muted">Bio placeholder — edit me later.</p>
                   <p class="text-sm text-muted mt-2">
                     Graduated from Pune Institute of Computer Technology (PICT)
                     in 2025.
@@ -63,9 +65,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                   class="w-40 h-40 rounded-full object-cover mb-4 mx-auto"
                 />
                 <h2 class="text-3xl font-bold mb-2">Hi, I'm Piyush Jain</h2>
-                <p class="text-muted mb-4">
-                  Bio placeholder — edit me later.
-                </p>
+                <p class="text-muted mb-4">Bio placeholder — edit me later.</p>
                 <p class="text-sm text-muted mb-4">
                   Graduated from Pune Institute of Computer Technology (PICT) in
                   2025.
@@ -87,15 +87,13 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           <!-- Hero: full viewport -->
           <section
             id="hero"
-            class="min-h-screen pt-8 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20 flex flex-col justify-start relative overflow-hidden"
+            class="min-h-screen pt-8 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20 flex flex-col justify-start relative overflow-visible"
           >
             <div class="max-w-3xl">
               <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                 Hi, I'm <span class="dark:text-muted">Piyush Jain</span>
               </h1>
-              <p
-                class="text-lg md:text-xl text-muted mb-8"
-              >
+              <p class="text-lg md:text-xl text-muted mb-8">
                 Featured work and directions below. Explore publications,
                 research, and projects.
               </p>
@@ -112,22 +110,11 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {
                 featured && featured.length > 0
-                  ? featured.map((item) => (
-                      <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
-                        <h3 class="text-lg font-semibold mb-1">
-                          {item.data?.title ?? "Featured"}
-                        </h3>
-                        <p class="text-sm text-muted line-clamp-3">
-                          {item.data?.description ?? "Featured item"}
-                        </p>
-                      </div>
-                    ))
+                  ? featured.map((item) => <ProjectCard entry={item} />)
                   : [1, 2, 3].map((n) => (
                       <div class="rounded-xl border border-[rgb(var(--border-color))] p-5 hover:shadow-md transition-shadow bg-[rgb(var(--bg-secondary))]">
                         <h3 class="text-lg font-semibold mb-1">Featured</h3>
-                        <p class="text-sm text-muted">
-                          Coming soon
-                        </p>
+                        <p class="text-sm text-muted">Coming soon</p>
                       </div>
                     ))
               }
@@ -141,26 +128,12 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
               {
                 (publications?.slice(0, 3) || []).map((p) => (
-                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                    <div class="text-sm font-semibold">
-                      {p.data?.title ?? "Publication"}
-                    </div>
-                    <div class="text-xs text-muted">
-                      {p.data?.venue ?? ""}
-                    </div>
-                  </div>
+                  <PublicationCard entry={p} />
                 ))
               }
               {
                 (projects?.slice(0, 3) || []).map((prj) => (
-                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                    <div class="text-sm font-semibold">
-                      {prj.data?.title ?? "Project"}
-                    </div>
-                    <div class="text-xs text-muted">
-                      {prj.data?.description ?? ""}
-                    </div>
-                  </div>
+                  <ProjectCard entry={prj} />
                 ))
               }
               {
@@ -180,18 +153,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           <section class="py-10 border-t border-[rgb(var(--border-color))]">
             <h2 class="text-2xl font-bold mb-4">Art</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
-              {
-                (art?.slice(0, 3) || []).map((a) => (
-                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                    <div class="text-sm font-semibold">
-                      {a.data?.title ?? "Art"}
-                    </div>
-                    <div class="text-xs text-muted">
-                      {a.data?.medium ?? ""}
-                    </div>
-                  </div>
-                ))
-              }
+              {(art?.slice(0, 3) || []).map((a) => <ArtworkCard entry={a} />)}
               {
                 (art?.length ?? 0) === 0 && (
                   <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
@@ -205,9 +167,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
 
           <section class="py-10 border-t border-[rgb(var(--border-color))]">
             <h2 class="text-2xl font-bold mb-4">Experience</h2>
-            <p class="text-muted mb-3">
-              Content coming soon.
-            </p>
+            <p class="text-muted mb-3">Content coming soon.</p>
             <a href="/experience" class="text-sm font-medium underline"
               >See more</a
             >
@@ -264,13 +224,13 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
         background-repeat: no-repeat;
       }
 
-      /* Hide normal navbar on home page desktop only (mobile should show it) */
-      @media (min-width: 768px) {
+      /* Hide normal navbar on home page desktop only (mobile should show it) - moved to global.css - this code left for temp debugging*/
+      /* @media (min-width: 768px) {
         body .site-nav {
           display: none !important;
           visibility: hidden;
         }
-      }
+      } */
 
       /* Island positioning */
       .home-island {
@@ -440,4 +400,5 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
       })();
     </script>
   </div>
+  <ProjectModal />
 </BaseLayout>

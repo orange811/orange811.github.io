@@ -1,0 +1,93 @@
+---
+// Client island: attaches a global listener for `open-modal` events
+---
+
+<div id="__project-modal-root">
+    <!-- Modal markup is created/controlled by client script below -->
+</div>
+
+<script is:inline>
+    (() => {
+        const root = document.getElementById("__project-modal-root");
+        if (!root) return;
+
+        let overlay = null;
+
+        function createOverlay() {
+            overlay = document.createElement("div");
+            overlay.className =
+                "fixed inset-0 z-50 flex items-start justify-center p-6";
+            overlay.style.background = "rgba(0,0,0,0.6)";
+
+            const panel = document.createElement("div");
+            panel.className =
+                "max-w-3xl w-full max-h-[80vh] overflow-auto bg-[rgb(var(--bg-primary))] rounded-xl p-6 relative";
+            panel.setAttribute("role", "dialog");
+            panel.setAttribute("aria-modal", "true");
+
+            const closeBtn = document.createElement("button");
+            closeBtn.className = "absolute right-4 top-4 text-sm";
+            closeBtn.textContent = "✕";
+            closeBtn.addEventListener("click", closeOverlay);
+
+            panel.appendChild(closeBtn);
+
+            const content = document.createElement("div");
+            content.className = "project-modal-content";
+            panel.appendChild(content);
+
+            overlay.appendChild(panel);
+            overlay.addEventListener("click", (e) => {
+                if (e.target === overlay) closeOverlay();
+            });
+
+            return overlay;
+        }
+
+        function openOverlay(html) {
+            if (!overlay) overlay = createOverlay();
+            const content = overlay.querySelector(".project-modal-content");
+            content.innerHTML = html;
+            document.body.appendChild(overlay);
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeOverlay() {
+            if (!overlay) return;
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            document.body.style.overflow = "";
+        }
+
+        async function handleOpen(e) {
+            const detail = e.detail || {};
+            const slug = detail.slug;
+            const collection = detail.collection || "projects";
+            if (!slug) return;
+
+            try {
+                const url = `/${collection === "projects" ? "project-modal" : collection + "-modal"}/${slug}/`;
+                const res = await fetch(url, { cache: "force-cache" });
+                if (!res.ok) throw new Error("Not found");
+                const html = await res.text();
+                openOverlay(html);
+            } catch (err) {
+                openOverlay(`<div class='p-6'>Content not available.</div>`);
+            }
+        }
+
+        window.addEventListener("open-modal", handleOpen);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                const hasOverlay = document.body.querySelector(
+                    ".project-modal-content",
+                );
+                if (hasOverlay) {
+                    // remove overlay if present
+                    const ov = document.body.querySelector(".fixed.inset-0");
+                    if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
+                    document.body.style.overflow = "";
+                }
+            }
+        });
+    })();
+</script>

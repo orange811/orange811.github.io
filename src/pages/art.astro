@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import LiquidGlassNav from "../components/LiquidGlassNav.astro";
+import ArtworkCard from "../components/cards/ArtworkCard.astro";
 
 const artworks = await getCollection("art");
 const sortedArt = artworks.sort((a, b) => {
@@ -27,58 +28,11 @@ const sortedArt = artworks.sort((a, b) => {
       sortedArt.length > 0 ? (
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedArt.map((art) => (
-            <article class="border border-[rgb(var(--border-color))] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-              {art.data.image && (
-                <div class="aspect-square bg-surface dark:bg-surface">
-                  <img
-                    src={art.data.image}
-                    alt={art.data.title}
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <div class="p-4">
-                <h2 class="text-xl font-bold mb-2">{art.data.title}</h2>
-                {art.data.medium && (
-                  <p class="text-sm text-muted mb-2">
-                    {art.data.medium}
-                  </p>
-                )}
-                {art.data.date && (
-                  <p class="text-xs text-muted mb-3">
-                    {new Date(art.data.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                    })}
-                  </p>
-                )}
-                {art.data.tags && art.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-3">
-                    {art.data.tags.map((tag) => (
-                      <span class="px-2 py-1 text-xs font-medium bg-surface dark:bg-surface rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {art.data.link && (
-                  <a
-                    href={art.data.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm font-medium hover:underline"
-                  >
-                    View Full →
-                  </a>
-                )}
-              </div>
-            </article>
+            <ArtworkCard entry={art} />
           ))}
         </div>
       ) : (
-        <p class="text-muted">
-          Art collection coming soon.
-        </p>
+        <p class="text-muted">Art collection coming soon.</p>
       )
     }
 

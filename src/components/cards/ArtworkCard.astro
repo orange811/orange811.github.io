@@ -1,0 +1,10 @@
+---
+import Card from "../Card.astro";
+const { entry } = Astro.props;
+
+// Prefer an external link if provided, otherwise link to the image if available
+const href = entry.data?.link ?? entry.data?.image ?? null;
+const action = href ? { type: "link", href } : null;
+---
+
+<Card entry={entry} action={action} />

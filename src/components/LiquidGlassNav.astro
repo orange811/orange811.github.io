@@ -16,7 +16,9 @@ const lgConfigJson = JSON.stringify(lgConfig);
 ---
 
 <!-- Removed Tailwind safelist dummy; utilities `hidden` and `md:flex` are present in source files --><!-- Unified floating-style liquid glass nav for all pages -->
-<div class="home-island sticky top-4 z-20 hidden md:flex md:justify-center">
+<div
+    class="home-island sticky top-4 z-20 hidden md:justify-center pointer-enabled lg-nuke"
+>
     <nav
         class="lg-base-pill px-3 py-0.5 border flex items-center gap-1"
         data-lg-island
@@ -119,6 +121,26 @@ const lgConfigJson = JSON.stringify(lgConfig);
     const lgConfig = JSON.parse(lgConfigJson);
 
     (() => {
+        // Only activate the floating liquid-glass nav on pointer-capable
+        // devices with hover support and at least the md width. This prevents
+        // the floating nav from briefly flashing on slow mobile devices.
+        const shouldActivate =
+            typeof window !== "undefined" &&
+            window.matchMedia &&
+            window.matchMedia(
+                "(min-width: 768px) and (hover: hover) and (pointer: fine)",
+            ).matches;
+
+        const root = document.querySelector(".pointer-enabled");
+        if (!shouldActivate || !root) {
+            // Ensure the floating nav remains hidden if not activating
+            if (root) root.classList.add("lg-nuke");
+            return;
+        }
+
+        // Unhide the floating nav now that we've confirmed the device supports it
+        root.classList.remove("lg-nuke");
+
         const nav = document.querySelector("[data-lg-island]");
         const VISUAL_Y_OFFSET = -1;
         const selector = document.querySelector("[data-lg-selector]");

@@ -1,0 +1,13 @@
+---
+import Card from "../Card.astro";
+const { entry } = Astro.props;
+
+// Determine default action for projects
+const action = entry.data?.external
+    ? { type: "link", href: entry.data?.link ?? entry.data?.repo }
+    : entry.data?.page
+      ? { type: "link", href: `/projects/${entry.slug}/` }
+      : { type: "modal" };
+---
+
+<Card entry={entry} action={action} />
