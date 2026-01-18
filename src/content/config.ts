@@ -9,6 +9,15 @@ const projects = defineCollection({
         tags: z.array(z.string()).default([]),
         repo: z.string().url().optional(),
         link: z.string().url().optional(),
+        // New optional fields for rich content
+        thumb: z.string().optional(),
+        hero: z.string().optional(),
+        excerpt: z.string().optional(),
+        page: z.boolean().default(false),
+        external: z.boolean().default(false),
+        gallery: z.array(z.string()).optional(),
+        video: z.string().url().optional(),
+        featured: z.boolean().default(false),
     }),
 });
 

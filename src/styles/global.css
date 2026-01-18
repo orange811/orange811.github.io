@@ -118,6 +118,63 @@
     a:hover {
         @apply text-muted dark:text-muted;
     }
+
+    /* Prose content specific styles - override defaults for markdown content */
+    .prose {
+        color: rgb(var(--text-primary));
+    }
+
+    .prose a {
+        color: rgb(var(--space-indigo-bright));
+        text-decoration: underline;
+        font-weight: 500;
+    }
+
+    .prose a:hover {
+        color: rgb(var(--cta));
+    }
+
+    .prose strong {
+        color: rgb(var(--text-primary));
+        font-weight: 600;
+    }
+
+    .prose code {
+        color: rgb(var(--text-primary));
+        background-color: rgb(var(--bg-secondary));
+        border-radius: 0.25rem;
+        padding: 0.125rem 0.375rem;
+        font-size: 0.875em;
+    }
+
+    .prose pre {
+        background-color: rgb(var(--bg-secondary));
+        border: 1px solid rgb(var(--border-color));
+    }
+
+    .prose pre code {
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .prose blockquote {
+        border-left-color: rgb(var(--border-color));
+        color: rgb(var(--text-secondary));
+    }
+
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+        color: rgb(var(--text-primary));
+    }
+
+    .prose video,
+    .prose iframe {
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -139,7 +196,7 @@
     position: relative;
     border-radius: 999px;
     /* FIXED: Syntax changed from rgba(var(), 0.13) to rgb(var() / 0.13) */
-    border: 1px solid rgb(var(--jet-black) / 0.13);
+    /* border: 1px solid rgb(var(--jet-black) / 0.13); */
     background: linear-gradient(180deg,
             rgb(255 255 255) 0%,
             rgb(248 250 252) 50%,

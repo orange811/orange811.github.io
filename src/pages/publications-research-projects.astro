@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import LiquidGlassNav from "../components/LiquidGlassNav.astro";
 import PublicationCard from "../components/cards/PublicationCard.astro";
 import ProjectCard from "../components/cards/ProjectCard.astro";
+import ProjectModal from "../components/ProjectModal.astro";
 
 const publications = await getCollection("publications");
 const sortedPublications = publications.sort((a, b) => {
@@ -133,4 +134,5 @@ const researchItems = [
             }
         </section>
     </div>
+    <ProjectModal />
 </BaseLayout>

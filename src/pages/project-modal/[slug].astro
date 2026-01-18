@@ -40,23 +40,32 @@ export async function getStaticPaths() {
         )
     }
 
-    <footer class="mt-6 text-sm text-muted">
+    <footer class="mt-6 text-sm text-muted flex flex-wrap gap-3 items-center">
+        {(entry?.data as any)?.page !== false ? (
+            <a
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-surface hover:bg-accent text-text dark:text-on-brand"
+                href={`/projects/${entry?.slug}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                View Full Page
+            </a>
+        ) : null}
         {
             entry?.data?.repo ? (
-                <div>
-                    <a class="underline" href={entry.data.repo} target="_blank">
-                        Repository
-                    </a>
-                </div>
+                <a class="underline hover:text-accent" href={entry.data.repo} target="_blank">
+                    Repository
+                </a>
             ) : null
         }
         {
             entry?.data?.link ? (
-                <div>
-                    <a class="underline" href={entry.data.link} target="_blank">
-                        External Link
-                    </a>
-                </div>
+                <a class="underline hover:text-accent" href={entry.data.link} target="_blank">
+                    External Link
+                </a>
             ) : null
         }
     </footer>

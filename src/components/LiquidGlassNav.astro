@@ -20,7 +20,7 @@ const lgConfigJson = JSON.stringify(lgConfig);
     class="home-island sticky top-4 z-20 hidden md:justify-center pointer-enabled lg-nuke"
 >
     <nav
-        class="lg-base-pill px-3 py-0.5 border flex items-center gap-1"
+        class="lg-base-pill px-3 py-0.5 flex items-center gap-1"
         data-lg-island
         data-lg-mode="floating"
         style="position: relative; overflow: visible;"
@@ -167,6 +167,7 @@ const lgConfigJson = JSON.stringify(lgConfig);
         let activeItem = null;
         let raf = null;
         let hasMoved = false;
+        let lastClosestItem = null;
         // Removed `lockedY`
 
         const lerp = (start, end, factor) => start + (end - start) * factor;
@@ -179,7 +180,7 @@ const lgConfigJson = JSON.stringify(lgConfig);
         }
 
         function animate() {
-            const smoothness = 0.185;
+            const smoothness = 0.35;
             currentX = lerp(currentX, targetX, smoothness);
             currentY = lerp(currentY, targetY, smoothness);
             currentW = lerp(currentW, targetW, smoothness);
@@ -254,24 +255,6 @@ const lgConfigJson = JSON.stringify(lgConfig);
             selector.style.transition = "";
         }
 
-        function findClosestItem(mx, my) {
-            let minDist = Infinity;
-            let closestItem = null;
-            for (const item of items) {
-                try {
-                    const rect = item.getBoundingClientRect();
-                    const cx = rect.left + rect.width / 2;
-                    const cy = rect.top + rect.height / 2;
-                    const dist = Math.hypot(mx - cx, my - cy);
-                    if (dist < minDist) {
-                        minDist = dist;
-                        closestItem = item;
-                    }
-                } catch (err) {}
-            }
-            return { item: closestItem, distance: minDist };
-        }
-
         function updateHighlight(item) {
             items.forEach((i) =>
                 i.classList.toggle("lg-island-link--highlight", i === item),
@@ -303,8 +286,19 @@ const lgConfigJson = JSON.stringify(lgConfig);
             targetW = 150;
             targetH = 80;
 
-            const res = findClosestItem(mouseX, mouseY);
-            updateHighlight(res && res.item);
+            // Get element directly under mouse
+            const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+            // Check if it's one of our nav items (not the selector or nav itself)
+            const itemUnderMouse = items.find(
+                (item) =>
+                    item === elementUnderMouse ||
+                    item.contains(elementUnderMouse),
+            );
+
+            if (itemUnderMouse && itemUnderMouse !== lastClosestItem) {
+                lastClosestItem = itemUnderMouse;
+                updateHighlight(itemUnderMouse);
+            }
             startAnimation();
         }
 

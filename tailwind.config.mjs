@@ -43,7 +43,69 @@ export default {
                     return `rgb(var(--accent) / ${opacityValue})`
                 },
             },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        maxWidth: 'none',
+                        color: 'rgb(var(--text-primary))',
+                        a: {
+                            color: 'rgb(var(--space-indigo-bright))',
+                            textDecoration: 'underline',
+                            fontWeight: '500',
+                        },
+                        'a:hover': {
+                            color: 'rgb(var(--cta))',
+                        },
+                        h1: {
+                            color: 'rgb(var(--text-primary))',
+                            fontWeight: '700',
+                        },
+                        h2: {
+                            color: 'rgb(var(--text-primary))',
+                            fontWeight: '700',
+                        },
+                        h3: {
+                            color: 'rgb(var(--text-primary))',
+                            fontWeight: '600',
+                        },
+                        h4: {
+                            color: 'rgb(var(--text-primary))',
+                            fontWeight: '600',
+                        },
+                        code: {
+                            color: 'rgb(var(--text-primary))',
+                            backgroundColor: 'rgb(var(--bg-secondary))',
+                            borderRadius: '0.25rem',
+                            padding: '0.125rem 0.25rem',
+                            fontWeight: '400',
+                        },
+                        'code::before': {
+                            content: '""',
+                        },
+                        'code::after': {
+                            content: '""',
+                        },
+                        pre: {
+                            backgroundColor: 'rgb(var(--bg-secondary))',
+                            color: 'rgb(var(--text-primary))',
+                            borderRadius: '0.5rem',
+                        },
+                        'pre code': {
+                            backgroundColor: 'transparent',
+                            padding: '0',
+                        },
+                        strong: {
+                            color: 'rgb(var(--text-primary))',
+                            fontWeight: '600',
+                        },
+                        blockquote: {
+                            color: 'rgb(var(--text-secondary))',
+                            borderLeftColor: 'rgb(var(--border-color))',
+                        },
+                    },
+                },
+            },
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/typography')],
 };
