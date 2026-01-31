@@ -20,11 +20,6 @@ Watch the full demo on YouTube:
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/aPf_i_lAKT4" frameborder="0" allowfullscreen></iframe>
 
-<video controls width="100%" style="margin-top: 1rem; border-radius: 0.5rem;">
-  <source src="/images/projects/fluid-sim/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 ## Controls
 
 - **Mouse drag**: Add dye and push fluid (adds velocity)
@@ -74,7 +69,7 @@ This approach prioritizes visual plausibility and real-time performance over phy
 
 ## References & Inspiration
 
-- **Jos Stam** — *Real-Time Fluid Dynamics for Games*  
+- **Jos Stam** — "Real-Time Fluid Dynamics for Games"  
   [ResearchGate Paper](https://www.researchgate.net/publication/2560062_Real-Time_Fluid_Dynamics_for_Games)
 
 - **Mike Ash** — "Fluid Simulation for Dummies"  

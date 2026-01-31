@@ -46,32 +46,31 @@ export async function getStaticPaths() {
                             {entry.data.tags.join(", ")}
                         </div>
                     ) : null}
+                    {entry.data?.repo ? (
+                        <a
+                            class="hover:opacity-70 transition-opacity inline-flex items-center mt-3"
+                            href={entry.data.repo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Repository"
+                        >
+                            <img
+                                src="/logos/github/GitHub_Invertocat_Black.svg"
+                                alt="GitHub"
+                                class="h-8 w-8 dark:hidden"
+                            />
+                            <img
+                                src="/logos/github/GitHub_Invertocat_White.svg"
+                                alt="GitHub"
+                                class="h-8 w-8 hidden dark:block"
+                            />
+                        </a>
+                    ) : null}
                 </header>
 
                 {rendered ? <rendered.Content /> : <div>Loading...</div>}
 
-                <footer class="mt-8">
-                    <div class="flex gap-3">
-                        {entry.data?.repo ? (
-                            <a
-                                class="px-4 py-2 rounded-md bg-surface hover:bg-accent"
-                                href={entry.data.repo}
-                                target="_blank"
-                            >
-                                Repository
-                            </a>
-                        ) : null}
-                        {entry.data?.link ? (
-                            <a
-                                class="px-4 py-2 rounded-md bg-surface hover:bg-accent"
-                                href={entry.data.link}
-                                target="_blank"
-                            >
-                                External Link
-                            </a>
-                        ) : null}
-                    </div>
-                </footer>
+                <footer class="mt-8" />
             </article>
         ) : (
             <div class="text-center py-12">

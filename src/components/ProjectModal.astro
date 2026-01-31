@@ -21,20 +21,42 @@
 
             const panel = document.createElement("div");
             panel.className =
-                "max-w-3xl w-full max-h-[80vh] overflow-auto bg-[rgb(var(--bg-primary))] rounded-xl p-6 relative";
+                "max-w-3xl w-full max-h-[80vh] bg-[rgb(var(--bg-primary))] rounded-xl relative flex flex-col overflow-hidden";
             panel.setAttribute("role", "dialog");
             panel.setAttribute("aria-modal", "true");
 
+            // Scrollable wrapper (scrollbar appears here, X button aligned with it)
+            const scrollWrapper = document.createElement("div");
+            scrollWrapper.className = "flex-1 overflow-y-auto mt-8 mr-1.5";
+
+            // Close button at top-right, centered over the 12px scrollbar
             const closeBtn = document.createElement("button");
-            closeBtn.className = "absolute right-4 top-4 text-sm";
+            closeBtn.className =
+                "absolute right-1 top-3 z-20 text-sm text-muted hover:text-text transition-colors w-5 text-center";
             closeBtn.textContent = "✕";
             closeBtn.addEventListener("click", closeOverlay);
-
             panel.appendChild(closeBtn);
 
+            // Fixed header with title, date, logos (sticky inside scroll)
+            const header = document.createElement("div");
+            header.className =
+                "sticky top-0 z-10 px-6 pt-0 pb-8 pr-8 rounded-t-xl";
+            header.style.background =
+                "linear-gradient(to bottom, rgb(var(--bg-primary)) 0%, rgb(var(--bg-primary)) 80%, transparent 100%)";
+
+            // Header content container (will be populated from fetched HTML)
+            const headerContent = document.createElement("div");
+            headerContent.className = "modal-header-content";
+            header.appendChild(headerContent);
+
+            scrollWrapper.appendChild(header);
+
+            // Content area
             const content = document.createElement("div");
-            content.className = "project-modal-content";
-            panel.appendChild(content);
+            content.className = "project-modal-content px-6 pb-6 pr-8";
+            scrollWrapper.appendChild(content);
+
+            panel.appendChild(scrollWrapper);
 
             overlay.appendChild(panel);
             overlay.addEventListener("click", (e) => {
@@ -47,7 +69,57 @@
         function openOverlay(html) {
             if (!overlay) overlay = createOverlay();
             const content = overlay.querySelector(".project-modal-content");
+            const headerContent = overlay.querySelector(
+                ".modal-header-content",
+            );
             content.innerHTML = html;
+
+            // Move the header content (title, date, logos) from fetched HTML to fixed header
+            try {
+                const fetchedHeader = content.querySelector("header");
+                if (fetchedHeader && headerContent) {
+                    // Clear previous header content
+                    headerContent.innerHTML = "";
+                    // Move all children from fetched header to fixed header
+                    while (fetchedHeader.firstChild) {
+                        headerContent.appendChild(fetchedHeader.firstChild);
+                    }
+                    // Remove the now-empty header from content
+                    fetchedHeader.remove();
+                }
+
+                // Handle "View Full Page" anchor - place inline next to title
+                const original = headerContent.querySelector(
+                    'a[title="View Full Page"]',
+                );
+                const title = headerContent.querySelector("h1, h2");
+                if (original && title) {
+                    original.style.display = "none";
+                    let fp = headerContent.querySelector(".__fpbtn");
+                    if (!fp) {
+                        fp = document.createElement("a");
+                        fp.className =
+                            "text-muted hover:text-accent transition-colors __fpbtn inline-flex items-center ml-2 align-middle";
+                        fp.setAttribute("target", "_blank");
+                        fp.setAttribute("rel", "noopener noreferrer");
+                        fp.setAttribute("aria-label", "View Full Page");
+                        const svg = original.querySelector("svg");
+                        if (svg) {
+                            const clonedSvg = svg.cloneNode(true);
+                            clonedSvg.style.width = "1em";
+                            clonedSvg.style.height = "1em";
+                            fp.appendChild(clonedSvg);
+                        }
+                        title.appendChild(fp);
+                    }
+                    fp.setAttribute(
+                        "href",
+                        original.getAttribute("href") || "#",
+                    );
+                }
+            } catch (err) {
+                console.warn("Could not process modal header", err);
+            }
             document.body.appendChild(overlay);
             document.body.style.overflow = "hidden";
         }

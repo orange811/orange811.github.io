@@ -3,7 +3,7 @@
         "hoverWidth": 150,
         "hoverHeight": 80,
         "yLock": true,
-        "cornerRadius": 31.5,
+        "cornerRadius": 41,
         "comment": "Selector dimensions when hovering over nav items"
     },
     "maps": {
@@ -15,7 +15,7 @@
         "lensDiameter": 240,
         "radiusOfCurvatureFactor": 1.2,
         "maxDisplacement": 30,
-        "scale": 70,
+        "scale": 60,
         "comment": "Large circular lens settings for center magnification"
     },
     "bezel": {

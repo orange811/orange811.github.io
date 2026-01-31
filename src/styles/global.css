@@ -3,6 +3,67 @@
 @tailwind utilities;
 
 /* -------------------------------------------------------------------------- */
+/* 0. Custom Scrollbar Styles                                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--text-secondary) / 0.35);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--text-secondary) / 0.5);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgb(var(--text-secondary) / 0.65);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Dark mode scrollbar adjustments */
+.dark ::-webkit-scrollbar-thumb {
+    background: rgb(var(--text-secondary) / 0.4);
+    background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--text-secondary) / 0.55);
+    background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:active {
+    background: rgb(var(--text-secondary) / 0.7);
+    background-clip: padding-box;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: rgb(var(--text-secondary) / 0.35) transparent;
+}
+
+.dark * {
+    scrollbar-color: rgb(var(--text-secondary) / 0.4) transparent;
+}
+
+/* -------------------------------------------------------------------------- */
 /* 1. Global Variables & Themes                                               */
 /* -------------------------------------------------------------------------- */
 @layer base {
@@ -32,6 +93,20 @@
         --pink-mist: 217 162 181;
         /* #D9A2B5 */
 
+        /* Sakura Theme Palette */
+        --sakura-white: 255 250 252;
+        /* #FFFAFC - barely pink tint */
+        --sakura-blush: 252 240 245;
+        /* #FCF0F5 - soft blush surface */
+        --sakura-plum: 70 50 60;
+        /* #46323C - warm dark text */
+        --sakura-mauve: 140 115 125;
+        /* #8C737D - muted secondary */
+        --sakura-border: 235 215 225;
+        /* #EBD7E1 - soft pink border */
+        --sakura-rose: 200 130 155;
+        /* #C8829B - dusty rose accent */
+
         /* Dark Mode Core Palette (Space separated for modern RGB syntax) */
         --space-indigo-bright: 166 123 245;
         /* #5078FF */
@@ -48,11 +123,11 @@
 
 
         /* Theming Variables */
-        --bg-primary: var(--cream);
-        --bg-secondary: var(--vanilla-custard);
-        --text-primary: var(--dark-brown);
-        --text-secondary: var(--taupe);
-        --border-color: 215 214 210;
+        --bg-primary: var(--sakura-white);
+        --bg-secondary: var(--sakura-blush);
+        --text-primary: var(--sakura-plum);
+        --text-secondary: var(--sakura-mauve);
+        --border-color: var(--sakura-border);
         /* Home nav top offsets (used to keep spacing consistent across pages) */
         --home-island-top: 1rem;
         --home-island-scrolled-top: 1rem;
@@ -70,8 +145,8 @@
         --hero-light-image: url("/hero_banner_light.jpg");
         --hero-light-gradient-cut: 70%;
         /* Semantic token aliases (map these to the core palette above) */
-        --brand: var(--space-indigo);
-        --cta: var(--space-indigo-bright);
+        --brand: var(--sakura-rose);
+        --cta: var(--sakura-rose);
         /* Accent token (semantic alias for CTAs) */
         --accent: var(--cta);
         --surface: var(--bg-secondary);
@@ -89,6 +164,8 @@
         --text-primary: 226 232 240;
         --text-secondary: 148 163 184;
         --border-color: var(--space-indigo);
+        --cta: var(--space-indigo-bright);
+        --accent: var(--cta);
     }
 
     /* Reset Defaults */
@@ -125,7 +202,7 @@
     }
 
     .prose a {
-        color: rgb(var(--space-indigo-bright));
+        color: rgb(var(--accent));
         text-decoration: underline;
         font-weight: 500;
     }
@@ -198,10 +275,10 @@
     /* FIXED: Syntax changed from rgba(var(), 0.13) to rgb(var() / 0.13) */
     /* border: 1px solid rgb(var(--jet-black) / 0.13); */
     background: linear-gradient(180deg,
-            rgb(255 255 255) 0%,
-            rgb(248 250 252) 50%,
-            rgb(241 245 249) 100%);
-    box-shadow: 0 1px 3px rgb(15 23 42 / 0.08);
+            rgb(var(--bg-primary)) 0%,
+            rgb(var(--bg-secondary)) 50%,
+            rgb(var(--bg-primary)) 100%);
+    box-shadow: 0 1px 3px rgb(var(--sakura-plum) / 0.08);
 }
 
 .dark .lg-base-pill {
@@ -237,16 +314,15 @@
     pointer-events: none;
     z-index: 21;
 
-    /* Default State */
-    background: rgb(var(--space-indigo) / 0.13);
+    /* Default State - Sakura themed */
+    background: rgb(var(--sakura-mauve) / 0.12);
     border: 2px solid transparent;
-    /* Replaced 'red' debug border */
 
     /* Shadow stack */
     box-shadow:
-        0 2px 8px rgb(15 23 42 / 0.12),
-        0 4px 16px rgb(15 23 42 / 0.08),
-        inset 0 0 0 1px rgb(255 255 255 / 0.15);
+        0 2px 8px rgb(var(--sakura-plum) / 0.08),
+        0 4px 16px rgb(var(--sakura-plum) / 0.05),
+        inset 0 0 0 1px rgb(255 255 255 / 0.25);
 
     /* Performance & Transitions */
     transition:
@@ -265,8 +341,16 @@
     background: rgb(255 255 255 / 0.06);
     border: none;
     /* IMPORTANT: Ensure an SVG filter with id="lg-glass-distort" exists in your HTML/Layout */
-    backdrop-filter: url(#lg-glass-distort);
-    -webkit-backdrop-filter: url(#lg-glass-distort);
+    /* Added subtle blur after SVG filter to smooth antialiasing artifacts */
+    backdrop-filter: url(#lg-glass-distort) blur(0.25px);
+    -webkit-backdrop-filter: url(#lg-glass-distort) blur(0.25px);
+
+    /* Antialiasing / GPU rendering fixes */
+    transform: translateZ(0);
+    opacity: 0.99;
+    will-change: backdrop-filter;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Dark Mode Selector */
@@ -299,7 +383,7 @@
     font-weight: 600;
     font-size: 0.8125rem;
     line-height: 1.1;
-    color: rgb(30 41 59);
+    color: rgb(var(--sakura-plum));
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms;
     white-space: nowrap;
     opacity: 0.85;
@@ -310,7 +394,7 @@
 }
 
 .lg-island-link--highlight {
-    color: rgb(var(--toffee-brown)) !important;
+    color: rgb(175 95 115) !important;
     opacity: 1 !important;
 }
 

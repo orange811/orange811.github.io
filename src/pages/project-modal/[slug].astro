@@ -17,7 +17,32 @@ export async function getStaticPaths() {
 ---
 
 <div class="project-modal-fragment">
-    <header class="mb-4">
+    <header class="mb-4 relative">
+        {
+            entry ? (
+                <a
+                    class="absolute right-8 -top-2 text-muted hover:text-accent"
+                    href={`/projects/${entry.slug}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="View Full Page"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                    </svg>
+                </a>
+            ) : null
+        }
         <h2 class="text-2xl font-bold">
             {entry ? entry.data.title : "Not found"}
         </h2>
@@ -26,6 +51,28 @@ export async function getStaticPaths() {
                 <div class="text-xs text-muted">
                     {new Date(entry.data.date).toLocaleDateString()}
                 </div>
+            ) : null
+        }
+        {
+            entry?.data?.repo ? (
+                <a
+                    class="hover:opacity-70 transition-opacity inline-flex items-center mt-2"
+                    href={entry.data.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Repository"
+                >
+                    <img
+                        src="/logos/github/GitHub_Invertocat_Black.svg"
+                        alt="GitHub"
+                        class="h-6 w-6 dark:hidden"
+                    />
+                    <img
+                        src="/logos/github/GitHub_Invertocat_White.svg"
+                        alt="GitHub"
+                        class="h-6 w-6 hidden dark:block"
+                    />
+                </a>
             ) : null
         }
     </header>
@@ -41,52 +88,5 @@ export async function getStaticPaths() {
     }
 
     <footer class="mt-6 text-sm text-muted flex flex-wrap gap-3 items-center">
-        {
-            (entry?.data as any)?.page !== false ? (
-                <a
-                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-surface hover:bg-accent text-text dark:text-on-brand"
-                    href={`/projects/${entry?.slug}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                    </svg>
-                    View Full Page
-                </a>
-            ) : null
-        }
-        {
-            entry?.data?.repo ? (
-                <a
-                    class="underline hover:text-accent"
-                    href={entry.data.repo}
-                    target="_blank"
-                >
-                    Repository
-                </a>
-            ) : null
-        }
-        {
-            entry?.data?.link ? (
-                <a
-                    class="underline hover:text-accent"
-                    href={entry.data.link}
-                    target="_blank"
-                >
-                    External Link
-                </a>
-            ) : null
-        }
     </footer>
 </div>
