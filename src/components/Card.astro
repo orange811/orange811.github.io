@@ -40,7 +40,7 @@ function generateSrcset(thumbPath: string) {
     const widths = [1920, 1280, 960, 640, 320];
 
     // Helper to build URL and filesystem path for a candidate width
-    const buildCandidate = (base, w) => {
+    const buildCandidate = (base: string, w: number) => {
         const url = `${base}-${w}${ext}`;
         const fsPath = path.join(
             process.cwd(),
@@ -67,7 +67,7 @@ function generateSrcset(thumbPath: string) {
 
         if (found.length > 0) {
             const srcset = found
-                .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)[1])}w`)
+                .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`)
                 .join(", ");
             const defaultSrc = found[found.length - 1].url;
             return { src: defaultSrc, srcset };
@@ -83,13 +83,13 @@ function generateSrcset(thumbPath: string) {
         .filter((c) => fs.existsSync(c.fsPath))
         .sort(
             (a, b) =>
-                parseInt(a.url.match(/-(\d+)\./)[1]) -
-                parseInt(b.url.match(/-(\d+)\./)[1]),
+                parseInt(a.url.match(/-(\d+)\./)?.[1] ?? "0") -
+                parseInt(b.url.match(/-(\d+)\./)?.[1] ?? "0"),
         );
 
     if (discoveries.length > 0) {
         const srcset = discoveries
-            .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)[1])}w`)
+            .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`)
             .join(", ");
         const defaultSrc = discoveries[discoveries.length - 1].url;
         return { src: defaultSrc, srcset };
