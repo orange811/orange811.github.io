@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import LiquidGlassNav from "../components/LiquidGlassNav.astro";
 import ArtworkCard from "../components/cards/ArtworkCard.astro";
 
 const artworks = await getCollection("art");
@@ -16,7 +15,6 @@ const sortedArt = artworks.sort((a, b) => {
   title="Art - Piyush Jain"
   description="Creative works and art collections"
 >
-  <LiquidGlassNav />
   <div class="max-w-6xl mx-auto">
     <h1 class="text-4xl md:text-5xl font-bold mb-8">Art</h1>
 
