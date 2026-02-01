@@ -100,8 +100,8 @@
         /* #FCF0F5 - soft blush surface */
         --sakura-plum: 70 50 60;
         /* #46323C - warm dark text */
-        --sakura-mauve: 140 115 125;
-        /* #8C737D - muted secondary */
+        --sakura-mauve: 90 65 75;
+        /* #5A414B - darker, more saturated muted secondary */
         --sakura-border: 235 215 225;
         /* #EBD7E1 - soft pink border */
         --sakura-rose: 200 130 155;
@@ -192,9 +192,6 @@
         transition: color 0.2s;
     }
 
-    a:hover {
-        @apply text-muted dark:text-muted;
-    }
 
     /* Prose content specific styles - override defaults for markdown content */
     .prose {

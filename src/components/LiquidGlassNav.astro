@@ -341,12 +341,6 @@ const lgConfigJson = JSON.stringify(lgConfig);
                 // (Simplified for brevity of cleanup example)
             }
             startAnimation();
-
-            // Best effort proximity
-            if (navMode !== "centered") {
-                const res = findClosestItem(mouseX, mouseY);
-                updateHighlight(res && res.item);
-            }
         });
 
         nav.addEventListener("pointerleave", (ev) => {

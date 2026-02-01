@@ -1,4 +1,7 @@
 ---
+import fs from "fs";
+import path from "path";
+
 const { entry, action = null, variant = "default" } = Astro.props;
 
 // Build a safe action representation
@@ -21,6 +24,82 @@ let onKeyDownJS = "";
 if (actionJS) {
     onKeyDownJS = `if (event.key === 'Enter' || event.key === ' ') { ${actionJS} }`;
 }
+
+// Generate responsive srcset for thumbnail images
+function generateSrcset(thumbPath: string) {
+    if (!thumbPath) return null;
+
+    const lastDot = thumbPath.lastIndexOf(".");
+    const ext = thumbPath.substring(lastDot);
+    const pathWithoutExt = thumbPath.substring(0, lastDot);
+
+    // Try extracting width suffix (e.g., "-640")
+    const match = pathWithoutExt.match(/-(\d+)$/);
+
+    // Standard responsive widths (descending prioritized when discovering files)
+    const widths = [1920, 1280, 960, 640, 320];
+
+    // Helper to build URL and filesystem path for a candidate width
+    const buildCandidate = (base, w) => {
+        const url = `${base}-${w}${ext}`;
+        const fsPath = path.join(
+            process.cwd(),
+            "public",
+            url.replace(/^\/+/, ""),
+        );
+        return { url, fsPath };
+    };
+
+    // If filename already contains a width, use that as a ceiling
+    if (match) {
+        const baseWidth = parseInt(match[1]);
+        const basePath = pathWithoutExt.substring(
+            0,
+            pathWithoutExt.lastIndexOf("-"),
+        );
+        const available = widths
+            .filter((w) => w <= baseWidth)
+            .sort((a, b) => a - b);
+
+        const found = available
+            .map((w) => buildCandidate(basePath, w))
+            .filter((c) => fs.existsSync(c.fsPath));
+
+        if (found.length > 0) {
+            const srcset = found
+                .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)[1])}w`)
+                .join(", ");
+            const defaultSrc = found[found.length - 1].url;
+            return { src: defaultSrc, srcset };
+        }
+
+        // fallback to original if nothing found
+        return { src: thumbPath, srcset: null };
+    }
+
+    // If no width suffix in filename, attempt to discover generated variants
+    const discoveries = widths
+        .map((w) => buildCandidate(pathWithoutExt, w))
+        .filter((c) => fs.existsSync(c.fsPath))
+        .sort(
+            (a, b) =>
+                parseInt(a.url.match(/-(\d+)\./)[1]) -
+                parseInt(b.url.match(/-(\d+)\./)[1]),
+        );
+
+    if (discoveries.length > 0) {
+        const srcset = discoveries
+            .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)[1])}w`)
+            .join(", ");
+        const defaultSrc = discoveries[discoveries.length - 1].url;
+        return { src: defaultSrc, srcset };
+    }
+
+    // No discovered variants — return original path (may 404 if missing)
+    return { src: thumbPath, srcset: null };
+}
+
+const thumbData = entry?.data?.thumb ? generateSrcset(entry.data.thumb) : null;
 ---
 
 <article
@@ -32,12 +111,15 @@ if (actionJS) {
     style={`cursor: ${actionDetail ? "pointer" : "auto"}`}
 >
     {
-        entry?.data?.thumb ? (
+        thumbData ? (
             <div class="mb-3">
                 <img
-                    src={entry.data.thumb}
+                    src={thumbData.src}
+                    srcset={thumbData.srcset || undefined}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     alt={`${entry.data.title} thumbnail`}
                     class="w-full h-40 object-cover rounded-md"
+                    loading="lazy"
                 />
             </div>
         ) : null
