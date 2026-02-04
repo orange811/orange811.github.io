@@ -1,5 +1,5 @@
 ---
-title: "Coloured Fluid Simulator"
+title: "2D Fluid Simulator"
 description: "Real-time 2D Navier-Stokes fluid simulation in pure Java with interactive dye injection and velocity visualization."
 date: 2021-06-01
 tags: ["Java", "Fluid Simulation", "Numerical Methods", "Swing"]

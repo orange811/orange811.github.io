@@ -468,3 +468,18 @@
         display: none;
     }
 }
+
+/* Social icon links hover effect */
+.social-icon-link {
+    display: inline-block;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.social-icon-link:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.social-icon-link:active {
+    transform: translateY(0);
+}
