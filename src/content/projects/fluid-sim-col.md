@@ -6,6 +6,8 @@ tags: ["Java", "Fluid Simulation", "Numerical Methods", "Swing"]
 repo: "https://github.com/orange811/fluid-sim-col"
 link: "https://youtu.be/aPf_i_lAKT4"
 thumb: "/images/projects/fluid-sim/thumb.jpg"
+featured: true
+featuredOrder: 4
 ---
 
 ## Overview
@@ -43,14 +45,14 @@ java -cp bin graphics.Fluid
 The simulation uses a grid-based approach with the following key components:
 
 ### Data Structures
-- **Velocity field** (`Vec2[][]`) — Stores fluid motion at each grid cell
-- **Dye/color field** (`Color[][]`) — Tracks visual appearance of the fluid
+- **Velocity field** (`Vec2[][]`) - Stores fluid motion at each grid cell
+- **Dye/color field** (`Color[][]`) - Tracks visual appearance of the fluid
 
 ### Simulation Steps (each frame)
-1. **Diffusion** — Spreads velocity and dye to neighboring cells
-2. **Incompressibility projection** — Ensures fluid doesn't compress (divergence-free velocity field)
-3. **Advection** — Moves quantities along the velocity field (semi-Lagrangian method)
-4. **Fading** — Optional gradual decay of dye intensity
+1. **Diffusion** - Spreads velocity and dye to neighboring cells
+2. **Incompressibility projection** - Ensures fluid doesn't compress (divergence-free velocity field)
+3. **Advection** - Moves quantities along the velocity field (semi-Lagrangian method)
+4. **Fading** - Optional gradual decay of dye intensity
 
 ### Rendering
 - Uses Java Swing (`JFrame` + `JPanel`)
@@ -69,14 +71,14 @@ This approach prioritizes visual plausibility and real-time performance over phy
 
 ## References & Inspiration
 
-- **Jos Stam** — "Real-Time Fluid Dynamics for Games"  
+- **Jos Stam** - "Real-Time Fluid Dynamics for Games"  
   [ResearchGate Paper](https://www.researchgate.net/publication/2560062_Real-Time_Fluid_Dynamics_for_Games)
 
-- **Mike Ash** — "Fluid Simulation for Dummies"  
+- **Mike Ash** - "Fluid Simulation for Dummies"  
   [Blog Post](https://www.mikeash.com/pyblog/fluid-simulation-for-dummies.html)
 
-- **Inspecto** — "But How DO Fluid Simulations Work?"  
+- **Inspecto** - "But How DO Fluid Simulations Work?"  
   [YouTube Video](https://www.youtube.com/watch?v=qsYE1wMEMPA)
 
-- **The Coding Train** — "Coding Challenge 132: Fluid Simulation"  
+- **The Coding Train** - "Coding Challenge 132: Fluid Simulation"  
   [YouTube Video](https://www.youtube.com/watch?v=alhpH6ECFvQ)

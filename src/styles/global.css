@@ -142,7 +142,7 @@
         --lg-tilt: 0deg;
 
         /* #f0e5c7 */
-        --hero-light-image: url("/hero_banner_light.jpg");
+        --hero-light-image: url("/images/index/hero_banner_light.jpg");
         --hero-light-gradient-cut: 70%;
         /* Semantic token aliases (map these to the core palette above) */
         --brand: var(--sakura-rose);
@@ -156,6 +156,10 @@
         --border: var(--border-color);
         /* text color when placed on brand/cta background */
         --on-brand: 226 232 240;
+
+        /* Button backgrounds (darker/more saturated surface) */
+        --btn-bg: 238 220 230;
+        --btn-bg-hover: 225 205 218;
     }
 
     .dark {
@@ -166,6 +170,8 @@
         --border-color: var(--space-indigo);
         --cta: var(--space-indigo-bright);
         --accent: var(--cta);
+        --btn-bg: 22 30 50;
+        --btn-bg-hover: 30 40 65;
     }
 
     /* Reset Defaults */
@@ -467,6 +473,43 @@
     .site-nav {
         display: none;
     }
+}
+
+/* Static card (no hover animation, not clickable) */
+.card-static {
+    cursor: auto !important;
+}
+
+.card-static:hover {
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+    transform: none;
+}
+
+.card-static:active {
+    transform: none;
+}
+
+.dark .card-static:hover {
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.04);
+    transform: none;
+}
+
+/* Primary button */
+.btn-primary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(var(--border-color));
+    background-color: rgb(var(--btn-bg));
+    color: rgb(var(--text-primary));
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.btn-primary:hover {
+    background-color: rgb(var(--btn-bg-hover));
 }
 
 /* Social icon links hover effect */

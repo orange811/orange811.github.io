@@ -3,14 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import LiquidGlassNav from "../components/LiquidGlassNav.astro";
 import ProjectCard from "../components/cards/ProjectCard.astro";
-import PublicationCard from "../components/cards/PublicationCard.astro";
-import ArtworkCard from "../components/cards/ArtworkCard.astro";
 import ProjectModal from "../components/ProjectModal.astro";
+import experienceData from "../data/experience.json";
 
-const projects = await getCollection("projects").catch(() => []);
-const publications = await getCollection("publications").catch(() => []);
-const art = await getCollection("art").catch(() => []);
-const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
+const allProjects = await getCollection("projects").catch(() => []);
+
+// Gather all featured items, sort by featuredOrder
+const featured = (Array.isArray(allProjects) ? allProjects : [])
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.featuredOrder ?? 99) - (b.data.featuredOrder ?? 99))
+  .slice(0, 6);
 ---
 
 <BaseLayout
@@ -197,10 +199,8 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                   (PICT), 2025.
                 </p>
                 <div class="flex gap-3">
-                  <a
-                    href="/publications-research-projects"
-                    class="px-4 py-2 rounded-md bg-surface text-text dark:text-on-brand hover:bg-accent dark:hover:bg-accent"
-                    >View Work</a
+                  <a href="/publications-research-projects" class="btn-primary"
+                    >View Projects</a
                   >
                 </div>
               </div>
@@ -217,15 +217,19 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           >
             <div class="max-w-3xl">
               <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                Hi, I'm <span class="dark:text-muted">Piyush Jain</span>
+                Featured Work
               </h1>
               <p class="text-lg md:text-xl text-muted mb-8">
-                Featured work and directions below. Explore publications,
-                research, and projects.
+                Explore featured publications, research, and projects below, or
+                <a
+                  href="/publications-research-projects"
+                  class="underline hover:text-text transition-colors"
+                  >see them all here</a
+                >.
               </p>
             </div>
 
-            <!-- Featured Projects grid (layout placeholders or real items) -->
+            <!-- Featured Works grid (3x2 on desktop) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {
                 featured && featured.length > 0
@@ -238,56 +242,75 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
                     ))
               }
             </div>
+
+            <div class="mt-8 text-center">
+              <a href="/publications-research-projects" class="btn-primary"
+                >See More</a
+              >
+            </div>
           </section>
 
           <!-- Resume-like scroll sections -->
 
           <section class="py-10 border-t border-[rgb(var(--border-color))]">
-            <h2 class="text-2xl font-bold mb-4">Publications & Projects</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+            <h2 class="text-2xl font-bold mb-6">Work Experience</h2>
+            <div class="space-y-8">
               {
-                (publications?.slice(0, 3) || []).map((p) => (
-                  <PublicationCard entry={p} />
+                experienceData.workExperience.map((job) => (
+                  <article class="border-l-4 border-border dark:border-border pl-6">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+                      <div>
+                        <h3 class="text-xl font-bold">{job.title}</h3>
+                        <p class="text-muted">
+                          {job.company} &bull; {job.location}
+                        </p>
+                      </div>
+                      <time class="text-sm text-muted mt-1 sm:mt-0">
+                        {job.period}
+                      </time>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-muted mt-4">
+                      {job.bullets.map((b) => (
+                        <li set:html={b} />
+                      ))}
+                    </ul>
+                    {job.tags && job.tags.length > 0 && (
+                      <div class="flex flex-wrap gap-2 mt-4">
+                        {job.tags.map((tag) => (
+                          <span class="px-3 py-1 text-xs font-medium bg-surface dark:bg-surface rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </article>
                 ))
               }
+            </div>
+          </section>
+
+          <section class="py-10 border-t border-[rgb(var(--border-color))]">
+            <h2 class="text-2xl font-bold mb-6">Mentorship & Teaching</h2>
+            <div class="space-y-6">
               {
-                (projects?.slice(0, 3) || []).map((prj) => (
-                  <ProjectCard entry={prj} />
-                ))
-              }
-              {
-                (publications?.length ?? 0) + (projects?.length ?? 0) === 0 && (
-                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                    <div class="text-sm">Content coming soon.</div>
+                experienceData.mentorship.map((item) => (
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">{item.title}</h3>
+                    <p class="text-muted mb-2">
+                      {item.org} &bull; {item.period}
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-muted">
+                      {item.bullets.map((b) => (
+                        <li set:html={b} />
+                      ))}
+                    </ul>
                   </div>
-                )
+                ))
               }
             </div>
             <a
-              href="/publications-research-projects"
-              class="text-sm font-medium underline">See more</a
-            >
-          </section>
-
-          <section class="py-10 border-t border-[rgb(var(--border-color))]">
-            <h2 class="text-2xl font-bold mb-4">Art</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
-              {(art?.slice(0, 3) || []).map((a) => <ArtworkCard entry={a} />)}
-              {
-                (art?.length ?? 0) === 0 && (
-                  <div class="rounded-lg border border-[rgb(var(--border-color))] p-4">
-                    <div class="text-sm">Content coming soon.</div>
-                  </div>
-                )
-              }
-            </div>
-            <a href="/art" class="text-sm font-medium underline">See more</a>
-          </section>
-
-          <section class="py-10 border-t border-[rgb(var(--border-color))]">
-            <h2 class="text-2xl font-bold mb-4">Experience</h2>
-            <p class="text-muted mb-3">Content coming soon.</p>
-            <a href="/experience" class="text-sm font-medium underline"
+              href="/experience"
+              class="text-sm font-medium underline mt-4 inline-block"
               >See more</a
             >
           </section>
@@ -336,7 +359,7 @@ const featured = Array.isArray(projects) ? projects.slice(0, 3) : [];
           ),
           /* Layer 2: Dark tint overlay */
           linear-gradient(rgba(9, 9, 10, 0.5), rgba(6, 9, 10, 0.7)),
-          /* Layer 3: The Image */ url("/hero_banner.jpg");
+          /* Layer 3: The Image */ url("/images/index/hero_banner.jpg");
 
         background-position: center top;
         background-size: cover;

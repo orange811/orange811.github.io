@@ -1,0 +1,60 @@
+{
+    "workExperience": [
+        {
+            "title": "Technology Consultant - Automation & DevSecOps",
+            "company": "Hewlett Packard Enterprise (via Mphasis Ltd.)",
+            "location": "Pune, India",
+            "period": "Aug 2025 – Present",
+            "bullets": [
+                "Developed multithreaded Python module for server firmware upgrades across <span class=\"font-semibold text-text\">100+ servers</span>, including local HTTP service hosting multi-GB ISO images with comprehensive logging and robust error handling.",
+                "Reduced manual effort by over <span class=\"font-semibold text-text\">95%</span> by automating slow, error-prone upgrade processes complicated by undocumented hardware behavior."
+            ],
+            "tags": [
+                "Python",
+                "HTTP",
+                "Automation"
+            ]
+        },
+        {
+            "title": "Technology Consultant Intern",
+            "company": "Hewlett Packard Enterprise (via Mphasis Ltd.)",
+            "location": "Pune, India",
+            "period": "Feb 2025 – Aug 2025",
+            "bullets": [
+                "Automated log rotation and server-profile backups using Python, Ansible, AWX, and GitLab, improving reliability across managed Linux systems."
+            ],
+            "tags": [
+                "Python",
+                "Ansible",
+                "AWX",
+                "GitLab"
+            ]
+        },
+        {
+            "title": "Data Science & Machine Learning Intern",
+            "company": "MITU Skillologies",
+            "location": "Pune, India",
+            "period": "Feb 2024 – Mar 2024",
+            "bullets": [
+                "Built supervised learning model to classify chord harmonies in Bach chorales using feature-engineered musical attributes.",
+                "Optimized Random Forest and SVM via grid search, achieving <span class=\"font-semibold text-text\">78.95%</span> accuracy."
+            ],
+            "tags": [
+                "Python",
+                "scikit-learn"
+            ]
+        }
+    ],
+    "mentorship": [
+        {
+            "title": "Game Dev Utopia (GDU) - Technical Workshop Lead & Design Team Member",
+            "org": "PICT",
+            "period": "2022 – 2025",
+            "bullets": [
+                "Designed and led technical workshops on Blender 3D covering modeling, materials, lighting, and rendering from first principles.",
+                "Mentored participants to complete independent 3D projects; all attendees produced renders demonstrating applied skills.",
+                "Served on design team for inter-college events; created primary promotional poster for Paricharcha x Glitched."
+            ]
+        }
+    ]
+}

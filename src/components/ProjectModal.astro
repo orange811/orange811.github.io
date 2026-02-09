@@ -137,7 +137,7 @@
             if (!slug) return;
 
             try {
-                const url = `/${collection === "projects" ? "project-modal" : collection + "-modal"}/${slug}/`;
+                const url = `/content-modal/${collection}/${slug}/`;
                 const res = await fetch(url, { cache: "force-cache" });
                 if (!res.ok) throw new Error("Not found");
                 const html = await res.text();

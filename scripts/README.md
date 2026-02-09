@@ -31,14 +31,14 @@ python scripts/generate_thumbs.py <source> [options]
 ```
 
 **Arguments:**
-- `source` — Path to source image file
+- `source` - Path to source image file
 
 **Options:**
-- `--out-dir DIR` — Output directory (default: same as source)
-- `--widths W [W ...]` — Custom target widths (default: 320, 640, 960, 1280, 1920)
-- `--quality N` — JPEG quality 1–100 (default: 100)
-- `--prefix NAME` — Output filename prefix (default: source filename stem)
-- `--dry-run` — Preview actions without generating files
+- `--out-dir DIR` - Output directory (default: same as source)
+- `--widths W [W ...]` - Custom target widths (default: 320, 640, 960, 1280, 1920)
+- `--quality N` - JPEG quality 1–100 (default: 100)
+- `--prefix NAME` - Output filename prefix (default: source filename stem)
+- `--dry-run` - Preview actions without generating files
 
 ### Examples
 
@@ -107,7 +107,7 @@ pip install Pillow
 
 **Output file size too large**
 - Try lower quality: `--quality 85` or `--quality 75`
-- Check source dimensions — oversized sources produce larger outputs
+- Check source dimensions - oversized sources produce larger outputs
 
 **404 errors on site**
 - Ensure generated files follow naming pattern: `{prefix}-{width}.jpg`

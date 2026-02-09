@@ -1,9 +1,9 @@
 ---
 import Card from "../Card.astro";
-const { entry } = Astro.props;
+const { entry, clickable = true } = Astro.props;
 
-const href = entry.data?.link ?? null;
-const action = href ? { type: "link", href } : null;
+// Default to modal so clicking opens the abstract; external link is shown inside the modal
+const action = { type: "modal" as const };
 ---
 
-<Card entry={entry} action={action} />
+<Card entry={entry} action={action} clickable={clickable} />

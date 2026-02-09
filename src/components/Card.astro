@@ -2,22 +2,34 @@
 import fs from "fs";
 import path from "path";
 
-const { entry, action = null, variant = "default" } = Astro.props;
+const {
+    entry,
+    action = null,
+    variant = "default",
+    clickable = true,
+} = Astro.props;
+
+// When clickable is false, ignore any action
+const effectiveAction = clickable ? action : null;
 
 // Build a safe action representation
 let actionDetail = null;
 let actionJS = "";
 
-if (action && action.type === "modal") {
+if (effectiveAction && effectiveAction.type === "modal") {
     actionDetail = {
         collection: entry.collection ?? "projects",
         slug: entry.slug,
     };
     // JSON.stringify here is safe because actionDetail is plain data
     actionJS = `window.dispatchEvent(new CustomEvent('open-modal', { detail: ${JSON.stringify(actionDetail)} }));`;
-} else if (action && action.type === "link" && action.href) {
-    actionDetail = { href: action.href };
-    actionJS = `window.location.href = ${JSON.stringify(action.href)};`;
+} else if (
+    effectiveAction &&
+    effectiveAction.type === "link" &&
+    effectiveAction.href
+) {
+    actionDetail = { href: effectiveAction.href };
+    actionJS = `window.location.href = ${JSON.stringify(effectiveAction.href)};`;
 }
 
 let onKeyDownJS = "";
@@ -67,7 +79,10 @@ function generateSrcset(thumbPath: string) {
 
         if (found.length > 0) {
             const srcset = found
-                .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`)
+                .map(
+                    (f) =>
+                        `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`,
+                )
                 .join(", ");
             const defaultSrc = found[found.length - 1].url;
             return { src: defaultSrc, srcset };
@@ -89,13 +104,16 @@ function generateSrcset(thumbPath: string) {
 
     if (discoveries.length > 0) {
         const srcset = discoveries
-            .map((f) => `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`)
+            .map(
+                (f) =>
+                    `${f.url} ${parseInt(f.url.match(/-(\d+)\./)?.[1] ?? "0")}w`,
+            )
             .join(", ");
         const defaultSrc = discoveries[discoveries.length - 1].url;
         return { src: defaultSrc, srcset };
     }
 
-    // No discovered variants — return original path (may 404 if missing)
+    // No discovered variants - return original path (may 404 if missing)
     return { src: thumbPath, srcset: null };
 }
 
@@ -107,7 +125,7 @@ const thumbData = entry?.data?.thumb ? generateSrcset(entry.data.thumb) : null;
     tabindex={actionDetail ? 0 : undefined}
     onclick={actionJS || undefined}
     onkeydown={onKeyDownJS || undefined}
-    class={`card-base rounded-xl p-4 bg-[rgb(var(--bg-secondary))] hover:shadow-md transition-shadow`}
+    class={`card-base rounded-xl p-4 bg-[rgb(var(--bg-secondary))] hover:shadow-md transition-shadow${!clickable ? " card-static" : ""}`}
     style={`cursor: ${actionDetail ? "pointer" : "auto"}`}
 >
     {

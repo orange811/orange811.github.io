@@ -1,0 +1,128 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+
+    return projects.map((p) => ({
+        params: { collection: "projects", slug: p.slug ?? p.id },
+    }));
+}
+
+const { collection, slug } = Astro.params;
+
+let entry: any = null;
+let rendered: any = null;
+
+const items = await getCollection("projects").catch(() => []);
+entry = items.find((e) => e.slug === slug || e.id === slug);
+
+if (entry) {
+    rendered = await entry.render();
+}
+
+// Publications link externally, others get a project page
+const fullPageUrl =
+    entry?.data?.type === "publication"
+        ? (entry?.data?.link ?? null)
+        : `/projects/${entry?.slug}/`;
+---
+
+<div class="content-modal-fragment">
+    <header class="mb-4 relative">
+        {
+            entry && fullPageUrl ? (
+                <a
+                    class="absolute right-8 -top-2 text-muted hover:text-accent"
+                    href={fullPageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="View Full Page"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                    </svg>
+                </a>
+            ) : null
+        }
+        <h2 class="text-2xl font-bold">
+            {entry ? entry.data.title : "Not found"}
+        </h2>
+        {
+            entry?.data?.venue ? (
+                <div class="text-sm text-muted mt-1">{entry.data.venue}</div>
+            ) : null
+        }
+        {
+            entry?.data?.authors && entry.data.authors.length > 0 ? (
+                <div class="text-xs text-muted mt-1">
+                    {entry.data.authors.join(", ")}
+                </div>
+            ) : null
+        }
+        {
+            entry?.data?.date ? (
+                <div class="text-xs text-muted mt-1">
+                    {new Date(entry.data.date).toLocaleDateString()}
+                </div>
+            ) : null
+        }
+        {
+            entry?.data?.repo ? (
+                <a
+                    class="hover:opacity-70 transition-opacity inline-flex items-center mt-2"
+                    href={entry.data.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Repository"
+                >
+                    <img
+                        src="/logos/github/GitHub_Invertocat_Black.svg"
+                        alt="GitHub"
+                        class="h-6 w-6 dark:hidden"
+                    />
+                    <img
+                        src="/logos/github/GitHub_Invertocat_White.svg"
+                        alt="GitHub"
+                        class="h-6 w-6 hidden dark:block"
+                    />
+                </a>
+            ) : null
+        }
+        {
+            entry?.data?.type === "publication" && entry?.data?.link ? (
+                <a
+                    href={entry.data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm font-medium hover:underline mt-2 inline-block ml-3"
+                >
+                    View Paper →
+                </a>
+            ) : null
+        }
+    </header>
+
+    {
+        entry && rendered ? (
+            <div class="prose max-w-none">
+                <rendered.Content />
+            </div>
+        ) : (
+            <div class="p-6">Not found</div>
+        )
+    }
+
+    <footer class="mt-6 text-sm text-muted flex flex-wrap gap-3 items-center">
+    </footer>
+</div>

@@ -9,7 +9,7 @@ const projects = defineCollection({
         tags: z.array(z.string()).default([]),
         repo: z.string().url().optional(),
         link: z.string().url().optional(),
-        // New optional fields for rich content
+        // Optional fields for rich content
         thumb: z.string().optional(),
         hero: z.string().optional(),
         excerpt: z.string().optional(),
@@ -18,17 +18,12 @@ const projects = defineCollection({
         gallery: z.array(z.string()).optional(),
         video: z.string().url().optional(),
         featured: z.boolean().default(false),
-    }),
-});
-
-const publications = defineCollection({
-    type: 'content',
-    schema: z.object({
-        title: z.string(),
+        featuredOrder: z.number().optional(),
+        // Entry type: project (default), research, or publication
+        type: z.enum(["project", "research", "publication"]).default("project"),
+        // Publication-specific fields
         venue: z.string().optional(),
-        date: z.date().optional(),
         authors: z.array(z.string()).default([]),
-        link: z.string().url().optional(),
     }),
 });
 
@@ -46,6 +41,5 @@ const art = defineCollection({
 
 export const collections = {
     projects,
-    publications,
     art,
 };

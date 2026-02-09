@@ -1,49 +1,28 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import PublicationCard from "../components/cards/PublicationCard.astro";
 import ProjectCard from "../components/cards/ProjectCard.astro";
 import ProjectModal from "../components/ProjectModal.astro";
 
-const publications = await getCollection("publications");
-const sortedPublications = publications.sort((a, b) => {
+const allProjects = await getCollection("projects");
+
+const sortByDate = (a: any, b: any) => {
     const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
     const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
     return dateB - dateA;
-});
+};
 
-const projects = await getCollection("projects");
-const sortedProjects = projects.sort((a, b) => {
-    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
-    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
-    return dateB - dateA;
-});
+const publications = allProjects
+    .filter((p) => p.data.type === "publication")
+    .sort(sortByDate);
 
-const researchItems = [
-    {
-        title: "Bi-Directional Sign Language Translator (Final Year Project)",
-        org: "Pune Institute of Computer Technology",
-        period: "Sep 2024 – May 2025",
-        bullets: [
-            "Real-time Indian Sign Language to text system using MediaPipe landmarks; compared LSTM vs DTW for sequence modeling.",
-            "Text-to-sign pipeline via NLP text-to-gloss conversion and dictionary-driven retrieval of sign videos.",
-            "Achieved 94.32% accuracy on 11 dynamic gestures using DTW; ongoing manuscript preparation.",
-        ],
-        link: {
-            href: "https://github.com/orange811/sign-language-translator/",
-            label: "View Code →",
-        },
-    },
-    {
-        title: "Single Image De-Raining (Independent Study, Honours Seminar)",
-        org: "Pune Institute of Computer Technology",
-        period: "Jan 2025 – Apr 2025",
-        bullets: [
-            "TensorFlow CNN to remove rain streaks using hybrid L1 + SSIM loss.",
-            "Outperformed baseline models on PSNR and SSIM while remaining lightweight for deployment.",
-        ],
-    },
-];
+const research = allProjects
+    .filter((p) => p.data.type === "research")
+    .sort(sortByDate);
+
+const personalProjects = allProjects
+    .filter((p) => p.data.type === "project")
+    .sort(sortByDate);
 ---
 
 <BaseLayout
@@ -59,10 +38,10 @@ const researchItems = [
         <section class="mb-12">
             <h2 class="text-2xl md:text-3xl font-bold mb-6">Publications</h2>
             {
-                sortedPublications.length > 0 ? (
+                publications.length > 0 ? (
                     <div class="space-y-6">
-                        {sortedPublications.map((pub) => (
-                            <PublicationCard entry={pub} />
+                        {publications.map((pub) => (
+                            <ProjectCard entry={pub} />
                         ))}
                     </div>
                 ) : (
@@ -77,35 +56,10 @@ const researchItems = [
                 Research Experience
             </h2>
             {
-                researchItems.length > 0 ? (
+                research.length > 0 ? (
                     <div class="space-y-6">
-                        {researchItems.map((item) => (
-                            <article class="p-6 border border-[rgb(var(--border-color))] rounded-lg">
-                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-                                    <h3 class="text-xl font-bold">
-                                        {item.title}
-                                    </h3>
-                                    <time class="text-sm text-muted">
-                                        {item.period}
-                                    </time>
-                                </div>
-                                <p class="text-muted mb-2">{item.org}</p>
-                                <ul class="list-disc list-inside space-y-2 text-muted">
-                                    {item.bullets.map((b) => (
-                                        <li>{b}</li>
-                                    ))}
-                                </ul>
-                                {item.link && (
-                                    <a
-                                        href={item.link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-sm font-medium hover:underline mt-3 inline-block"
-                                    >
-                                        {item.link.label}
-                                    </a>
-                                )}
-                            </article>
+                        {research.map((item) => (
+                            <ProjectCard entry={item} />
                         ))}
                     </div>
                 ) : (
@@ -120,9 +74,9 @@ const researchItems = [
                 Personal Projects
             </h2>
             {
-                sortedProjects.length > 0 ? (
+                personalProjects.length > 0 ? (
                     <div class="space-y-6">
-                        {sortedProjects.map((project) => (
+                        {personalProjects.map((project) => (
                             <ProjectCard entry={project} />
                         ))}
                     </div>
