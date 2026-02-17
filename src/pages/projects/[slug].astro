@@ -26,11 +26,24 @@ export async function getStaticPaths() {
             <article class="prose lg:prose-xl mx-auto">
                 {(entry.data as any)?.hero ? (
                     <div class="mb-6">
-                        <img
-                            src={(entry.data as any).hero}
-                            alt={`${entry.data.title} hero`}
-                            class="w-full rounded-lg object-cover"
-                        />
+                        {(entry.data as any).hero.match(
+                            /\.(mp4|webm|mov)$/i,
+                        ) ? (
+                            <video
+                                src={(entry.data as any).hero}
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                                class="w-full rounded-lg object-cover"
+                            />
+                        ) : (
+                            <img
+                                src={(entry.data as any).hero}
+                                alt={`${entry.data.title} hero`}
+                                class="w-full rounded-lg object-cover"
+                            />
+                        )}
                     </div>
                 ) : null}
 

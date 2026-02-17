@@ -131,14 +131,26 @@ const thumbData = entry?.data?.thumb ? generateSrcset(entry.data.thumb) : null;
     {
         thumbData ? (
             <div class="mb-3">
-                <img
-                    src={thumbData.src}
-                    srcset={thumbData.srcset || undefined}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    alt={`${entry.data.title} thumbnail`}
-                    class="w-full h-40 object-cover rounded-md"
-                    loading="lazy"
-                />
+                {thumbData.src && /(mp4|webm)$/i.test(thumbData.src) ? (
+                    <video
+                        src={thumbData.src}
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        class="w-full h-40 object-cover rounded-md"
+                        preload="metadata"
+                    />
+                ) : (
+                    <img
+                        src={thumbData.src}
+                        srcset={thumbData.srcset || undefined}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        alt={`${entry.data.title} thumbnail`}
+                        class="w-full h-40 object-cover rounded-md"
+                        loading="lazy"
+                    />
+                )}
             </div>
         ) : null
     }

@@ -7,7 +7,7 @@ repo: "https://github.com/orange811/fluid-sim-col"
 link: "https://youtu.be/aPf_i_lAKT4"
 thumb: "/images/projects/fluid-sim/thumb.jpg"
 featured: true
-featuredOrder: 4
+featuredOrder: 5
 ---
 
 ## Overview

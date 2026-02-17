@@ -5,7 +5,7 @@ date: 2025-04-01
 tags: ["Python", "TensorFlow", "CNN", "Image Processing"]
 type: "research"
 featured: true
-featuredOrder: 3
+featuredOrder: 4
 excerpt: "Independent Study (Honours Seminar) - lightweight CNN for rain-streak removal, outperforming baselines on PSNR and SSIM."
 ---
 
